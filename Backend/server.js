@@ -7,8 +7,6 @@ const mongoose = require('mongoose');
 var signUpSignIn = require('./routes/api/signUpSignIn');
 var signUpUser = require('./routes/api/signUpSignIn');
 
-//var dbConnection = require('./models/dbConnectionPool');
-
 const app = express();
 app.set('view engine', 'ejs');
 const port = process.env.PORT || 5005;
