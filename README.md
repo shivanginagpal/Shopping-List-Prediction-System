@@ -6,11 +6,11 @@ recommendations for the creating Shopping Lists.
 1. Clone the Repository
 
 ## For backend
-1. Do a npm insatll in the backend folder to install the dependcies.
+1. Do a npm install in the backend folder to install the dependcies.
 2. Do npm run dev to run the backend server.
 3. The server will be started on port 5005
 
 ## For Frontend
-1. Do a npm insatll in the frontend folder to install the dependcies.
+1. Do a npm install in the frontend folder to install the dependcies.
 2. Do npm start to run the frontend server.
 3. The react app will be started on port 3000
