@@ -72,7 +72,7 @@ router.post("/signIn", async function(req, res){
       errors.email = 'User not found';
       return res.status(404).json(errors);
     }
-    console.log(password, user.password);
+    //console.log(password, user.password);
     // Check Password
     bcrypt
     .compare(password, user.password)
@@ -91,6 +91,7 @@ router.post("/signIn", async function(req, res){
               success: true,
               token: 'Bearer ' + token
             });
+            console.log(token);
           }
         );
       } else {

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+var {ListSchema} = require('./List');
 
 // Create Schema
 const UserSchema = new Schema({
@@ -14,7 +15,12 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  address: {
+    type: String
+  },
+  lists: [ListSchema]
+  
 });
 
 module.exports = User = mongoose.model('users', UserSchema);

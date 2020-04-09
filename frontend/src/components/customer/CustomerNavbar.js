@@ -2,13 +2,13 @@ import React,{Component} from "react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authAction';
-import { clearProfile } from '../../actions/profileActions';
+import { clearUser } from '../../actions/userActions';
 
 class CustomerNavbar extends Component{
   handleLogout(e){
     e.preventDefault();
     this.props.logoutUser();
-    this.props.clearProfile();
+    this.props.clearUser();
     window.location.href = '/';
   }
   render(){
@@ -46,7 +46,7 @@ class CustomerNavbar extends Component{
 
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link" href="/customerHome"> Create New List
+                <a className="nav-link" href="/createListHome"> Create New List
                 </a>
               </li>
             </ul>
@@ -72,4 +72,4 @@ class CustomerNavbar extends Component{
  CustomerNavbar.propTypes = {
    logoutUser: PropTypes.func.isRequired,
 }
- export default connect (null,{logoutUser,clearProfile}) (CustomerNavbar);
+ export default connect (null,{logoutUser,clearUser}) (CustomerNavbar);

@@ -5,7 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 var signUpSignIn = require('./routes/api/signUpSignIn');
-var signUpUser = require('./routes/api/signUpSignIn');
+var list = require('./routes/api/list');
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -49,7 +49,7 @@ mongoose
 //Use Routes
 
 app.use('/',signUpSignIn);
-app.use('/',signUpUser);
+app.use('/',list);
 
 app.get('/',(req,res) => res.send('Hello World!!'));
 
