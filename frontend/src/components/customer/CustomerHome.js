@@ -3,9 +3,9 @@ import CustomerNavbar from "./CustomerNavbar";
 import SideBar from "../layout/SideBar";
 
 
-export default class CustomerHome extends Component {
+ class CustomerHome extends Component {
   render() {
-    let size = "";
+    
     return (
       <div>
         <div>
@@ -21,3 +21,5 @@ export default class CustomerHome extends Component {
     );
   }
 }
+
+export default CustomerHome;

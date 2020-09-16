@@ -7,6 +7,7 @@ import Login from './auth/Login';
 import Register from './auth/Register';
 import CustomerHome from './customer/CustomerHome';
 import CreateListHome from './list/CreateListHome';
+import addList from './list/addList';
 
 export default class Main extends Component {
     render() {
@@ -17,6 +18,7 @@ export default class Main extends Component {
                 <Route exact path="/" component={Landing}/>
                 <Route exact path="/login" component={Login}/>
                 <Route exact path="/register" component={Register}/>
+                <Route exact path="/addList" component={addList} />
                 <Route exact path="/customerHome" component={CustomerHome}/>
                 <Route exact path="/createListHome" component={CreateListHome}/>
                   

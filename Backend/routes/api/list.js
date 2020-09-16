@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const passportAuth = passport.authenticate('jwt', { session: false });
+const mongoose = require("mongoose");
+const ObjectId = mongoose.Types.ObjectId;
 
 // Load User Model
 const User = require('../../models/User');
@@ -40,6 +42,44 @@ router.post(
         });
     }
 );
+
+router.post('/addList',(req, res) => {
+    console.log('body ', req.body);
+    User.findOne({_id: req.body.id}).then(user => {
+        const newList = {
+          listName: req.body.listName,
+        };
+        user.lists.unshift(newList);
+        user.save()
+        res.sendStatus(200)
+    })
+})
+
+router.put("/getList", (req, res) => {
+    User.aggregate([
+      {
+        $match: {
+          "_id": ObjectId(req.body.id),
+        },
+      },
+      {
+        $unwind: "$lists",
+      },
+      {
+        $project: {
+          lists: "$lists",
+        },
+      },
+    ])
+      .then((result) => {
+        console.log("messages retreived", result);
+        res.end(JSON.stringify(result));
+      })
+      .catch((err) => {
+        console.log(err);
+        res.end("could not get messages");
+      });
+})
 
 router.delete(
     '/deleteList/:list_id',

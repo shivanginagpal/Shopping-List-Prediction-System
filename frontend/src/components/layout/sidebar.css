@@ -1,105 +1,84 @@
-* {
+.sidebar-container {
+  position: fixed;
+  width: 220px;
+  height: 100%;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.content-container {
+  padding-top: 20px;
+}
+
+.sidebar-logo {
+  padding: 10px 15px 10px 30px;
+  font-size: 20px;
+  background-color: #2574A9;
+}
+
+.sidebar-navigation {
   padding: 0;
   margin: 0;
-  list-style: none;
-  text-decoration: none;
+  list-style-type: none;
+  position: relative;
 }
 
-.sidebar {
-  position: absolute;
-  left: 0px;
-  /* top: 56px; */
-  width: 250px;
-  height: 100vh;
-  background: #042331;
-  transition: all 0.5s ease;
-}
-
-.sidebar header {
-  font-size: 22px;
-  color: white;
-  line-height: 70px;
-  text-align: center;
-  background: #063146;
-  user-select: none;
-}
-
-.sidebar ul a {
-  display: block;
-  height: 100%;
+.sidebar-navigation li {
+  background-color: transparent;
+  position: relative;
+  display: inline-block;
   width: 100%;
-  line-height: 65px;
-  font-size: 20px;
-  color: white;
-  padding-left: 40px;
-  box-sizing: border-box;
-  border-bottom: 1px solid black;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  transition: 0.4s;
+  line-height: 20px;
 }
 
-ul li:hover a {
-  padding-left: 50px;
+.sidebar-navigation li a {
+  padding: 10px 15px 10px 30px;
+  display: block;
+  color: #fff;
 }
-.sidebar ul a i {
-  margin-right: 16px;
+
+.sidebar-navigation li .fa {
+  margin-right: 10px;
 }
-#check {
-  display: none;
+
+.sidebar-navigation li a:active,
+.sidebar-navigation li a:hover,
+.sidebar-navigation li a:focus {
+  text-decoration: none;
+  outline: none;
 }
-label #sidenavbtn,
-label #sidenavcancel {
+
+.sidebar-navigation li::before {
+  background-color: #2574A9;
   position: absolute;
-  background: #22566e;
-  border-radius: 3px;
-  cursor: pointer;
+  content: '';
+  height: 100%;
+  left: 0;
+  top: 0;
+  -webkit-transition: width 0.2s ease-in;
+  transition: width 0.2s ease-in;
+  width: 3px;
+  z-index: -1;
 }
 
-label #sidenavbtn {
-  left: 250px;
-  top: 70px;
-  font-size: 30px;
-  color: #01080c;
-  padding: 6px 12px;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.5s;
+.sidebar-navigation li:hover::before {
+  width: 100%;
 }
 
-label #sidenavcancel {
-  z-index: 1111;
-  left: 195px;
-  top: 110px;
-  font-size: 30px;
-  color: black;
-  padding: 4px 9px;
-  transition: all 0.5s ease;
+.sidebar-navigation .header {
+  font-size: 12px;
+  text-transform: uppercase;
+  background-color: #151515;
+  padding: 10px 15px 10px 30px;
 }
 
-#check:checked ~ .sidebar {
-  left: -250px;
-
+.sidebar-navigation .header::before {
+  background-color: transparent;
 }
 
-
-#check:checked ~ label #sidenavbtn {
-  left: 40px;
-  opacity: 1;
-  pointer-events: auto;
-}
-
-#check:checked ~ label #sidenavcancel {
-  left: -195px;
-}
-
-#check:checked ~ section {
-  margin-left: 0px;
-}
-section {
-  background: url("../../images/grocery.jpg") no-repeat;
-  background-position: center;
-  background-size: cover;
-  height: 100vh;
-  transition: all 0.5s;
-  margin-left: -250px;
+.content-container {
+  padding-left: 220px;
 }

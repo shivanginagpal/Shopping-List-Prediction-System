@@ -42,3 +42,10 @@ img {
   height: 25px;
   width:25px;
 }
+
+#addList{
+  margin-left: 200px;
+}
+#eventscard{
+  margin-bottom: 20px;
+}
