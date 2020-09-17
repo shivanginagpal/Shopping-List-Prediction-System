@@ -6,6 +6,8 @@ import swal from 'sweetalert';
 import { Link } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import {getID} from "../auth/HelperApis";
+import {hostaddress} from "../auth/settings";
+
 class addList extends Component {
   constructor() {
     super();
@@ -63,9 +65,9 @@ class addList extends Component {
             icon: "success",
             button: "OK",
           })
-            // .then(() => {
-            //   window.location.reload();
-            // })
+            .then(() => {
+              window.location.reload();
+            })
             .catch((error) => console.log(error.response.data));
         } else if (response.status === 201) {
           swal({
@@ -93,6 +95,11 @@ class addList extends Component {
     );
 
     let listheaders = this.state.lists.map(viewlist => {
+      let url =
+        "http://" +
+        hostaddress +
+        ":3000/viewItems/" +
+        viewlist.lists._id;
         return (
           <div class="card w-100" id="eventscard">
             <div class="card-body">
@@ -110,13 +117,12 @@ class addList extends Component {
                   </button> */}
                 </div>
                 <div className="col-2">
-                  <button
+                  <a href={url}
                     type="button"
                     class="btn btn-outline-success"
-                    // onClick={() => this.register(viewevent.event_id)}
                   >
                     view items
-                  </button>
+                  </a>
                 </div>
               </div>
               <p class="card-text" id="eventtext">

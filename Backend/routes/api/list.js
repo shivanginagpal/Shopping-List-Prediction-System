@@ -37,7 +37,7 @@ router.post(
 
             // Add to lists array
             user.lists.unshift(newList);
-            console.log(user);
+            //console.log(user);
             user.save().then(user => res.json(user));
         });
     }
@@ -50,8 +50,8 @@ router.post('/addList',(req, res) => {
           listName: req.body.listName,
         };
         user.lists.unshift(newList);
-        user.save()
-        res.sendStatus(200)
+        user.save().then(lists => res.status(200).json(lists))
+        //res.sendStatus(200)
     })
 })
 
@@ -105,27 +105,62 @@ router.delete(
 );
 
 //Adding Item To List
-router.post(
-    '/addItemToList',
-    passportAuth,
-    (req, res) => {
+router.post('/addItemToList',(req, res) => {
         console.log("body ", req.body);
         User.updateOne(
-            { "_id": req.user._id, "lists._id": req.body.list_id },
+            { "_id": req.body.id, "lists._id": req.body.listid },
                 {
                     "$push":
                     {
                         "lists.$[].item":
                         {
                             "itemName": req.body.itemName,
-                            "quantity": req.body.quantity
+                            "quantity": req.body.Quantity,
+                            "brandName":req.body.brandName,
+                            "price":req.body.Price,
+                            "store" : req.body.store
                         }
                     }
             })
-            .then(user => res.json(user))
+            .then(user => res.status(200).json(user))
             .catch(err => res.status(404).json(err));
     }
 );
+
+//getting items from the list
+router.put("/getitemsfromList", (req, res) => {
+  User.aggregate([
+    {
+      $match: {
+        _id: ObjectId(req.body.id),
+      },
+    },
+    {
+      $unwind: "$lists",
+    },
+    {
+      $match: {
+        "lists._id": ObjectId(req.body.listid),
+      },
+    },
+    {
+      $unwind: "$lists.item",
+    },{
+        $project: {
+            items:"$lists.item"
+        }
+    }
+  ])
+    .then((result) => {
+      console.log("messages retreived", result);
+      res.end(JSON.stringify(result));
+    })
+    .catch((err) => {
+      console.log(err);
+      res.end("could not get messages");
+    });
+});
+
 
 //Deleting Item To List
 router.post(
