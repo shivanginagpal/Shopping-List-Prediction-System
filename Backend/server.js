@@ -6,6 +6,10 @@ const mongoose = require('mongoose');
 
 var signUpSignIn = require('./routes/api/signUpSignIn');
 var list = require('./routes/api/list');
+var item = require('./routes/api/item');
+var category = require('./routes/api/category');
+
+
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -35,6 +39,7 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 const db = require('./config/keys').mongoURI;
+// const db = 'mongodb://localhost/items';
 
 //connect to mongoDB
 mongoose
@@ -50,6 +55,9 @@ mongoose
 
 app.use('/',signUpSignIn);
 app.use('/',list);
+app.use('/',item);
+app.use('/',category);
+
 
 app.get('/',(req,res) => res.send('Hello World!!'));
 
@@ -57,3 +65,5 @@ app.get('/',(req,res) => res.send('Hello World!!'));
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 });
+
+
