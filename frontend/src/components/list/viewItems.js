@@ -18,6 +18,11 @@ class viewItems extends Component {
       Quantity: "",
       Price: "",
       BrandName: "",
+      editmodal: false,
+      edititemName: null,
+      editQuantity: null,
+      editPrice: null,
+      editBrandName: null,
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -27,38 +32,57 @@ class viewItems extends Component {
     });
   };
 
+  editModal = (product) => {
+    console.log("product", product);
+    this.setState({
+      editproduct: product,
+      editmodal: !this.state.editmodal,
+      edititemName: null,
+      editQuantity: null,
+      editPrice: null,
+      editBrandName: null,
+    });
+  };
+
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
   };
+
+  handleEditChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
+
   componentDidMount = () => {
-      const listid = this.props.match.params.listid;
-      const id = getID();
-      const data = {
-        id: id,
-        listid: listid,
-      };
+    const listid = this.props.match.params.listid;
+    const id = getID();
+    const data = {
+      id: id,
+      listid: listid,
+    };
 
     axios("/getitemsfromList", {
-        method: "put",
-        data: data,
-      }).then((res) => {
-        this.setState({
-          items: this.state.items.concat(res.data),
-        });
-        console.log("This is p", this.state.items);
+      method: "put",
+      data: data,
+    }).then((res) => {
+      this.setState({
+        items: this.state.items.concat(res.data),
       });
+      console.log("This is p", this.state.items);
+    });
   }
 
   additem = (e) => {
     const listid = this.props.match.params.listid;
     const data = {
-        listid:listid,
+      listid: listid,
       itemName: this.state.itemName,
       Quantity: this.state.Quantity,
-      Price:this.state.Price,
-      brandName:this.state.BrandName,
+      Price: this.state.Price,
+      brandName: this.state.BrandName,
       id: getID(),
     };
     axios("/addItemToList", {
@@ -97,56 +121,130 @@ class viewItems extends Component {
       });
   };
   render() {
-      
-      const closeBtn = (
-        <button className="close" onClick={() => this.showModal()}>
-          &times;
-        </button>
-      );
-        let products;
-        console.log("ITEMS ===",this.state.items);
-      if (this.state.items) {
-        products = this.state.items.map((product) => {
+
+    const closeBtn = (
+      <button className="close" onClick={() => this.showModal()}>
+        &times;
+      </button>
+    );
+
+    const closeeditmodalBtn = (
+      <button className="close" onClick={() => this.editModal()}>
+        &times;
+      </button>
+    );
+    let products;
+    console.log("ITEMS ===", this.state.items);
+    if (this.state.items) {
+      products = this.state.items.map((product) => {
         //   let productimg = isFieldEmpty(product.products.productImage[0])
         //     ? product_image
         //     : product.products.productImage[0];
         let productimg = product_image;
-          return (
-            <div>
-              <div id="itemAdminRight">
-                <div className="col">
-                  <div className="card" id="cardadminclass">
-                    {/* {unknown} */}
-                    <img
-                      src={productimg}
-                      className="card-img-top"
-                      id="cardadmin-img-top"
-                      alt="..."
-                    />
-                    <div className="card-block" id="cardadmin-title-text">
-                      <h6 className="card-title lead" id="cardadmin-title">
-                        {product.items.itemName}
-                      </h6>
-                      <p className="card-text lead" id="cardadmin-text">
-                        {product.items.quantity}
-                      </p>
-                      <p className="card-text lead" id="cardadmin-text">
-                        {product.items.brandName}
-                      </p>
+        return (
+          <div>
+            <div id="itemAdminRight">
+              <div className="col">
+                <div className="card" id="cardadminclass">
+                  {/* {unknown} */}
+                  <img
+                    src={productimg}
+                    className="card-img-top"
+                    id="cardadmin-img-top"
+                    alt="..."
+                  />
+                  <div className="card-block" id="cardadmin-title-text">
+                    <h6 className="card-title lead" id="cardadmin-title">
+                      {product.items.itemName}
+                    </h6>
+                    <p className="card-text lead" id="cardadmin-text">
+                      {product.items.quantity}
+                    </p>
+                    <p className="card-text lead" id="cardadmin-text">
+                      {product.items.brandName}
+                    </p>
 
-                      <span>
-                        <p className="card-text lead" id="cardadmin-text">
-                          ${product.items.price}
-                        </p>
-                      </span>
-                    </div>
+                    <span>
+                      <p className="card-text lead" id="cardadmin-text">
+                        ${product.items.price}
+                      </p>
+                    </span>
+                    <button className="btn btn-primary" onClick={() => this.editModal(product)}>
+                      Edit
+                      </button>
                   </div>
                 </div>
               </div>
             </div>
-          );
-       });
-      }
+          </div>
+        );
+      });
+    }
+
+    let edit = ""
+    if (this.state.editproduct) {
+      edit = < Modal
+        isOpen={this.state.editmodal}
+        toggle={() => this.editModal()}
+        className="modal-popup"
+        transparent={true}
+        scrollable
+      >
+        <ModalHeader toggle={() => this.editModal()} close={closeeditmodalBtn}>
+          Edit Item
+                        </ModalHeader>
+        <ModalBody className="modal-body">
+          <form >
+            <div className="form-group">
+              <label className="font-weight-bold">Item Name:</label>
+              <input
+                onChange={this.handleChange}
+                name="edititemName"
+                className="form-control"
+                type="text"
+                id="itemName"
+                defaultValue={this.state.editproduct.items.itemName}
+              ></input>
+              <label className="font-weight-bold">Quantity:</label>
+              <input
+                onChange={this.handleChange}
+                name="editQuantity"
+                className="form-control"
+                type="number"
+                defaultValue={this.state.editproduct.items.quantity}
+              ></input>
+              <label className="font-weight-bold">Price:</label>
+              <input
+                onChange={this.handleChange}
+                name="editPrice"
+                className="form-control"
+                type="number"
+                defaultValue={this.state.editproduct.items.price}
+              ></input>
+              <label className="font-weight-bold">Brand Name:</label>
+              <input
+                onChange={this.handleChange}
+                name="editBrandName"
+                className="form-control"
+                type="text"
+                defaultValue={this.state.editproduct.items.brandName}
+              ></input>
+              <br />
+            </div>
+
+            <button className="btn btn-primary" onClick={() => this.edititem()}>
+              Submit
+            </button>
+          </form>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="secondary" onClick={() => this.editModal()}>
+            Cancel
+                          </Button>
+        </ModalFooter>
+      </Modal>
+    }
+    console.log("this.state: ", this.state);
     return (
       <div>
         <CustomerNavbar />
@@ -178,10 +276,10 @@ class viewItems extends Component {
                       </div>
                     </div>
                   ) : (
-                    <>
-                      <h4 style={{ margin: "3em" }}>No items to display!</h4>
-                    </>
-                  )}
+                      <>
+                        <h4 style={{ margin: "3em" }}>No items to display!</h4>
+                      </>
+                    )}
                 </div>
               </div>
             </div>
@@ -241,6 +339,9 @@ class viewItems extends Component {
             </Button>
           </ModalFooter>
         </Modal>
+
+        {edit}
+
       </div>
     );
   }
