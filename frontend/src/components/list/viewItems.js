@@ -174,7 +174,7 @@ class viewItems extends Component {
                     <div className="row ">
                       <div className="col">
                         {/* <br /> */}
-                        <div className="row">{products}</div>
+                        <div className="row" >{products}</div>
                       </div>
                     </div>
                   ) : (
