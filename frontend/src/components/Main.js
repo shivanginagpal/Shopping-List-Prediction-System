@@ -9,6 +9,7 @@ import CustomerHome from './customer/CustomerHome';
 import CreateListHome from './list/CreateListHome';
 import addList from './list/addList';
 import viewItems from './list/viewItems';
+import ItemsList from './items/ItemsList';
 
 export default class Main extends Component {
     render() {
@@ -23,6 +24,7 @@ export default class Main extends Component {
             <Route exact path="/customerHome" component={CustomerHome} />
             <Route exact path="/viewItems/:listid" component={viewItems} />
             <Route exact path="/createListHome" component={CreateListHome} />
+            <Route exact path="/ItemsList" component={ItemsList} />
           </div>
         );
     }

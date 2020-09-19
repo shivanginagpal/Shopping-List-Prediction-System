@@ -1,0 +1,17 @@
+.itemsviewList{
+   /* background-color:rgb(128, 203, 226); */
+}
+.items_List{
+    background-color:rgb(140, 222, 233);
+    width: 20%;
+    height: 50%;
+    display: inline-block;
+    border: 1px solid #000;
+    margin: 30px;
+    Text-align: center;
+    border-radius:30px;
+}
+
+.items_List #number {
+   margin-right: 10px;
+}

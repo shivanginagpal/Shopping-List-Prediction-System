@@ -25,7 +25,7 @@ class CustomerNavbar extends Component{
           <div className="collapse navbar-collapse" id="mobile-nav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link" href="/customerHome"> Items
+                <a className="nav-link" href="/ItemsList"> Items
                 </a>
               </li>
             </ul>
