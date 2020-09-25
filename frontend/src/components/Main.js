@@ -1,29 +1,31 @@
-import React, { Component } from 'react';
-import {Route} from 'react-router-dom';
+import React, { Component } from "react";
+import { Route } from "react-router-dom";
 
-import Landing from './layout/Landing';
+import Landing from "./layout/Landing";
 
-import Login from './auth/Login';
-import Register from './auth/Register';
-import CustomerHome from './customer/CustomerHome';
-import CreateListHome from './list/CreateListHome';
-import addList from './list/addList';
-import viewItems from './list/viewItems';
+import Login from "./auth/Login";
+import Register from "./auth/Register";
+import CustomerHome from "./customer/CustomerHome";
+import CreateListHome from "./list/CreateListHome";
+import addList from "./list/addList";
+import viewItems from "./list/viewItems";
+import UserProfile from "./profile/UserProfile";
 
 export default class Main extends Component {
-    render() {
-        return (
-          <div>
-            {/*Render Different Component based on Route*/}
+  render() {
+    return (
+      <div>
+        {/*Render Different Component based on Route*/}
 
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/addList" component={addList} />
-            <Route exact path="/customerHome" component={CustomerHome} />
-            <Route exact path="/viewItems/:listid" component={viewItems} />
-            <Route exact path="/createListHome" component={CreateListHome} />
-          </div>
-        );
-    }
+        <Route exact path="/" component={Landing} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/addList" component={addList} />
+        <Route exact path="/customerHome" component={CustomerHome} />
+        <Route exact path="/viewItems/:listid" component={viewItems} />
+        <Route exact path="/createListHome" component={CreateListHome} />
+        <Route exact path="/userProfile" component={UserProfile} />
+      </div>
+    );
+  }
 }
