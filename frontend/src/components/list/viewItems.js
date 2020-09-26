@@ -47,10 +47,10 @@ class viewItems extends Component {
         this.setState({
           editproduct: product,
           editmodal: !this.state.editmodal,
-          edititemName: product.items.itemName,
-          editQuantity: product.items.quantity,
-          editPrice: product.items.price,
-          editBrandName: product.items.brandName,
+          edititemName: product.itemName,
+          editQuantity: product.quantity,
+          editPrice: product.price,
+          editBrandName: product.brandName,
         });
     }
   };
@@ -69,35 +69,33 @@ class viewItems extends Component {
 
   componentDidMount = () => {
     const listid = this.props.match.params.listid;
-    const id = getID();
     const data = {
-      id: id,
-      listid: listid,
+      list_id: listid,
     };
 
     axios("/getitemsfromList", {
       method: "put",
       data: data,
     }).then((res) => {
+      console.log("THIS IS RESPONSE ",res);
       this.setState({
         items: this.state.items.concat(res.data),
       });
-      console.log("This is p", this.state.items);
+      console.log("This is p", this.state.items[0].item);
     });
   };
 
   additem = (e) => {
     const listid = this.props.match.params.listid;
     const data = {
-      listid: listid,
+      list_id: listid,
       itemName: this.state.itemName,
-      Quantity: this.state.Quantity,
-      Price: this.state.Price,
+      quantity: this.state.Quantity,
+      price: this.state.Price,
       brandName: this.state.BrandName,
-      id: getID(),
     };
     axios("/addItemToList", {
-      method: "post",
+      method: "put",
       data: data,
     })
       .then((response) => {
@@ -136,34 +134,32 @@ class viewItems extends Component {
     const listid = this.props.match.params.listid;
     
     const data = {
-      listid: listid,
+      list_id: listid,
       itemName: this.state.edititemName,
-      Quantity: this.state.editQuantity,
-      Price: this.state.editPrice,
+      quantity: this.state.editQuantity,
+      price: this.state.editPrice,
       brandName: this.state.editBrandName,
-      id: getID(),
-      itemid:itemid
+      item_id:itemid
     };
     axios("/updateItemToList", {
       method: "post",
       data: data,
-    })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          this.showModal();
-          swal({
-            title: "Success",
-            text: "Item updated successfully",
-            icon: "success",
-            button: "OK",
+    }).then((response) => {
+      console.log(response);
+      if (response.status === 200) {
+        this.showModal();
+        swal({
+          title: "Success",
+          text: "Item updated successfully",
+          icon: "success",
+          button: "OK",
+        })
+          .then(() => {
+            window.location.reload();
           })
-            .then(() => {
-              window.location.reload();
-            })
-            .catch((error) => console.log(error.response.data));
-        } 
-      })
+          .catch((error) => console.log(error.response.data));
+      }
+    });
   };
 
   render() {
@@ -179,9 +175,13 @@ class viewItems extends Component {
       </button>
     );
     let products;
-    console.log("ITEMS ===", this.state.items);
-    if (this.state.items) {
-      products = this.state.items.map((product) => {
+
+    console.log("ITEMS ===", this.state.items[0]);
+      
+    if (this.state.items[0] != undefined) {
+      let items = this.state.items[0];
+      console.log("ITEMS ARRAY ", items.item);
+      products = items.item.map((product) => {
         //   let productimg = isFieldEmpty(product.products.productImage[0])
         //     ? product_image
         //     : product.products.productImage[0];
@@ -200,18 +200,18 @@ class viewItems extends Component {
                   />
                   <div className="card-block" id="cardadmin-title-text">
                     <h6 className="card-title lead" id="cardadmin-title">
-                      {product.items.itemName}
+                      {product.itemName}
                     </h6>
                     <p className="card-text lead" id="cardadmin-text">
-                      {product.items.quantity}
+                      {product.quantity}
                     </p>
                     <p className="card-text lead" id="cardadmin-text">
-                      {product.items.brandName}
+                      {product.brandName}
                     </p>
 
                     <span>
                       <p className="card-text lead" id="cardadmin-text">
-                        ${product.items.price}
+                        ${product.price}
                       </p>
                     </span>
                     <button
@@ -255,7 +255,7 @@ class viewItems extends Component {
                   className="form-control"
                   type="text"
                   id="itemName"
-                  defaultValue={this.state.editproduct.items.itemName}
+                  defaultValue={this.state.editproduct.itemName}
                 ></input>
                 <label className="font-weight-bold">Quantity:</label>
                 <input
@@ -263,7 +263,7 @@ class viewItems extends Component {
                   name="editQuantity"
                   className="form-control"
                   type="number"
-                  defaultValue={this.state.editproduct.items.quantity}
+                  defaultValue={this.state.editproduct.quantity}
                 ></input>
                 <label className="font-weight-bold">Price:</label>
                 <input
@@ -271,7 +271,7 @@ class viewItems extends Component {
                   name="editPrice"
                   className="form-control"
                   type="number"
-                  defaultValue={this.state.editproduct.items.price}
+                  defaultValue={this.state.editproduct.price}
                 ></input>
                 <label className="font-weight-bold">Brand Name:</label>
                 <input
@@ -279,14 +279,14 @@ class viewItems extends Component {
                   name="editBrandName"
                   className="form-control"
                   type="text"
-                  defaultValue={this.state.editproduct.items.brandName}
+                  defaultValue={this.state.editproduct.brandName}
                 ></input>
                 <br />
               </div>
 
               <button
                 className="btn btn-primary"
-                onClick={() => this.edititem(this.state.editproduct.items._id)}
+                onClick={() => this.edititem(this.state.editproduct._id)}
               >
                 Submit
               </button>
@@ -300,7 +300,7 @@ class viewItems extends Component {
         </Modal>
       );
     }
-    console.log("this.state: ", this.state);
+    //console.log("this.state: ", this.state);
     return (
       <div>
         <CustomerNavbar />
@@ -332,9 +332,9 @@ class viewItems extends Component {
                       </div>
                     </div>
                   ) : (
-                    <>
+                    <div>
                       <h4 style={{ margin: "3em" }}>No items to display!</h4>
-                    </>
+                    </div>
                   )}
                 </div>
               </div>

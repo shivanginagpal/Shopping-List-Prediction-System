@@ -33,15 +33,17 @@ router.post("/createNewList", passportAuth, (req, res) => {
   const list = new List(listFields);
   list
     .save()
-    .then((list) => res.json(list))
+    .then((list) => res.status(200).json(list))
     .catch((err) => console.log(err));
 });
 
 router.get("/getList", passportAuth, (req, res) => {
+  console.log("body :", req.user._id);
   List.find({ user: ObjectId(req.user._id) })
     .then((result) => {
       console.log("messages retreived", result);
-      res.end(JSON.stringify(result));
+      //res.end(JSON.stringify(result));
+      res.json(result);
     })
     .catch((err) => {
       console.log(err);
@@ -62,84 +64,17 @@ router.put("/addItemToList", passportAuth, (req, res) => {
 
     // Add to item array
     list.item.unshift(newItem);
-
-    list.save().then((list) => res.json(list));
+    list.save().then((list) => res.status(200).json(list));
   });
 });
 
-router.post("/updateItemToList", async (req, res) => {
-    console.log("body ", req.body);
-    // let i ={};
-    // i.itemName = req.body.itemName
-    // i.quantity = req.body.Quantity
-    // i.brandName = req.body.brandName
-    // i.price = req.body.Price
-    // i.store = req.body.store
-    User.find({
-      _id: req.body.id,
-      "lists._id": req.body.listid,
-    },{
-     
-    }
-    ).then(user => {
-      console.log(JSON.stringify(user));
-    })
-      // await User.findOneAndUpdate(
-      //   {
-      //     _id: req.body.id,
-      //     "lists._id": req.body.listid,
-      //     "lists.item._id": req.body.itemid,
-      //   },
-      //   {
-      //     "$set": {
-      //       "itemName": i.itemName
-      //     },
-      //   }
-      // )
-      //   var input = await User.aggregate([
-      //   {
-      //     $match: {
-      //       _id: ObjectId(req.body.id),
-      //     },
-      //   },
-      //   { $unwind: "$lists" },
-      //   {
-      //     $match: {
-      //       "lists._id": ObjectId(req.body.listid),
-      //     },
-      //   },
-      //   { $unwind: "$lists.item" },
-      //   {
-      //     $match: {
-      //       "lists.item._id": ObjectId(req.body.itemid),
-      //     },
-      //   },
-      //   {
-      //     $project : {
-      //       item : "$lists.item"
-      //     }
-      //   }
-      //   // {
-      //   //   "$set": {
-      //   //     "lists.item.itemName": req.body.itemName,
-      //   //   },
-      //   // },
-      // ])
-      // .then((user) => {
-      //   console.log("this is print" + JSON.stringify(user[0]._id));
-
-      //   res.status(200).json(user);
-      // })
-      // .catch((err) => res.status(404).json(err));
-      //console.log("this is print" + JSON.stringify(input[0].item.quantity));
-});
-
 //getting items from the list
-router.get("/getitemsfromList", passportAuth, (req, res) => {
-  List.findOne({ _id: ObjectId(req.body.list_id) })
+router.put("/getitemsfromList", passportAuth, (req, res) => {
+  List.findOne({ _id: ObjectId(req.body.list_id) },{"item" : 1, "_id" : 0})
     .then((result) => {
       console.log("messages retreived", result);
-      res.end(JSON.stringify(result));
+      //res.end(JSON.stringify(result));
+      res.json(result);
     })
     .catch((err) => {
       console.log(err);

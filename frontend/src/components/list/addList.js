@@ -31,12 +31,8 @@ class addList extends Component {
     });
   };
   componentDidMount() {
-      const data = {
-        id: getID()
-      };
     axios("/getList", {
-      method: "put",
-      data:data
+      method: "get",
     }).then((response) => {
       this.setState({
         lists: this.state.lists.concat(response.data),
@@ -49,9 +45,8 @@ class addList extends Component {
     const data = {
       listName: this.state.listName,
       listType: this.state.listType,
-      id: getID(),
     };
-    axios("/addList", {
+    axios("/createNewList", {
       method: "post",
       data: data,
     })
@@ -99,13 +94,13 @@ class addList extends Component {
         "http://" +
         hostaddress +
         ":3000/viewItems/" +
-        viewlist.lists._id;
+        viewlist._id;
         return (
           <div class="card w-100" id="eventscard">
             <div class="card-body">
               <div className="row">
                 <h5 class="card-title col-7" id="eventtext">
-                  List name: {viewlist.lists.listName}
+                  List name: {viewlist.listName}
                 </h5>
                 <div className="col-3">
                   {/* <button
