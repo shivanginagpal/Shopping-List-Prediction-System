@@ -20,7 +20,6 @@ const UserSchema = new Schema({
     type: String
   },
   lists: [ListSchema]
-  
 });
 
 module.exports = User = mongoose.model('users', UserSchema);

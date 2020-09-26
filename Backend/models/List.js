@@ -13,7 +13,7 @@ const ListSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  item: [
+  item: [ 
     {
       itemName: {
         type: String,

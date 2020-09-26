@@ -7,6 +7,7 @@ const ObjectId = mongoose.Types.ObjectId;
 
 // Load User Model
 const User = require('../../models/User');
+const List = require('../../models/List');
 
 //get the user
 router.get('/getUser',
@@ -112,7 +113,7 @@ router.post('/addItemToList',(req, res) => {
                 {
                     "$push":
                     {
-                        "lists.$[].item":
+                        "lists.$.item":
                         {
                             "itemName": req.body.itemName,
                             "quantity": req.body.Quantity,
@@ -126,6 +127,73 @@ router.post('/addItemToList',(req, res) => {
             .catch(err => res.status(404).json(err));
     }
 );
+
+router.post("/updateItemToList", async (req, res) => {
+    console.log("body ", req.body);
+    // let i ={};
+    // i.itemName = req.body.itemName
+    // i.quantity = req.body.Quantity
+    // i.brandName = req.body.brandName
+    // i.price = req.body.Price
+    // i.store = req.body.store
+    User.find({
+      _id: req.body.id,
+      "lists._id": req.body.listid,
+    },{
+     
+    }
+    ).then(user => {
+      console.log(JSON.stringify(user));
+    })
+      // await User.findOneAndUpdate(
+      //   {
+      //     _id: req.body.id,
+      //     "lists._id": req.body.listid,
+      //     "lists.item._id": req.body.itemid,
+      //   },
+      //   {
+      //     "$set": {
+      //       "itemName": i.itemName
+      //     },
+      //   }
+      // )
+      //   var input = await User.aggregate([
+      //   {
+      //     $match: {
+      //       _id: ObjectId(req.body.id),
+      //     },
+      //   },
+      //   { $unwind: "$lists" },
+      //   {
+      //     $match: {
+      //       "lists._id": ObjectId(req.body.listid),
+      //     },
+      //   },
+      //   { $unwind: "$lists.item" },
+      //   {
+      //     $match: {
+      //       "lists.item._id": ObjectId(req.body.itemid),
+      //     },
+      //   },
+      //   {
+      //     $project : {
+      //       item : "$lists.item"
+      //     }
+      //   }
+      //   // {
+      //   //   "$set": {
+      //   //     "lists.item.itemName": req.body.itemName,
+      //   //   },
+      //   // },
+      // ])
+      // .then((user) => {
+      //   console.log("this is print" + JSON.stringify(user[0]._id));
+
+      //   res.status(200).json(user);
+      // })
+      // .catch((err) => res.status(404).json(err));
+      //console.log("this is print" + JSON.stringify(input[0].item.quantity));
+});
 
 //getting items from the list
 router.put("/getitemsfromList", (req, res) => {
@@ -163,24 +231,21 @@ router.put("/getitemsfromList", (req, res) => {
 
 
 //Deleting Item To List
-router.post(
-    '/deleteItemFromList',
-    passportAuth,
-    (req,res)=>{
+router.delete('/deleteItemFromList',(req,res) => {
         console.log(req.body);
-
         User.updateOne(
-            { "_id": req.user._id, 
-            "lists._id": req.body.list_id},
+            { "_id": req.body.id, 
+            "lists._id": req.body.listid},
                 {
                     "$pull":
                     {
-                        "lists.$.item": {_id:req.body.item_id}   
+                        "lists.$.item": {_id:req.body.itemid}   
                     }
                 }
         ).then(user => {
             res.json(user);
-            console.log(user)}
+            //console.log(user)
+        }
         )
         .catch(err => res.status(404).json(err));
     }

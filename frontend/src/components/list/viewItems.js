@@ -34,14 +34,25 @@ class viewItems extends Component {
 
   editModal = (product) => {
     console.log("product", product);
-    this.setState({
-      editproduct: product,
-      editmodal: !this.state.editmodal,
-      edititemName: null,
-      editQuantity: null,
-      editPrice: null,
-      editBrandName: null,
-    });
+    if (this.state.editmodal){
+        this.setState({
+          edititemName: null,
+          editQuantity: null,
+          editPrice: null,
+          editBrandName: null,
+          editmodal: !this.state.editmodal,
+        });
+    }
+    else{
+        this.setState({
+          editproduct: product,
+          editmodal: !this.state.editmodal,
+          edititemName: product.items.itemName,
+          editQuantity: product.items.quantity,
+          editPrice: product.items.price,
+          editBrandName: product.items.brandName,
+        });
+    }
   };
 
   handleChange = (e) => {
@@ -73,7 +84,7 @@ class viewItems extends Component {
       });
       console.log("This is p", this.state.items);
     });
-  }
+  };
 
   additem = (e) => {
     const listid = this.props.match.params.listid;
@@ -120,8 +131,42 @@ class viewItems extends Component {
         console.log("add project not 2xx response");
       });
   };
-  render() {
 
+  edititem = (itemid) => {
+    const listid = this.props.match.params.listid;
+    
+    const data = {
+      listid: listid,
+      itemName: this.state.edititemName,
+      Quantity: this.state.editQuantity,
+      Price: this.state.editPrice,
+      brandName: this.state.editBrandName,
+      id: getID(),
+      itemid:itemid
+    };
+    axios("/updateItemToList", {
+      method: "post",
+      data: data,
+    })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          this.showModal();
+          swal({
+            title: "Success",
+            text: "Item updated successfully",
+            icon: "success",
+            button: "OK",
+          })
+            .then(() => {
+              window.location.reload();
+            })
+            .catch((error) => console.log(error.response.data));
+        } 
+      })
+  };
+
+  render() {
     const closeBtn = (
       <button className="close" onClick={() => this.showModal()}>
         &times;
@@ -169,9 +214,12 @@ class viewItems extends Component {
                         ${product.items.price}
                       </p>
                     </span>
-                    <button className="btn btn-primary" onClick={() => this.editModal(product)}>
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => this.editModal(product)}
+                    >
                       Edit
-                      </button>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -181,68 +229,76 @@ class viewItems extends Component {
       });
     }
 
-    let edit = ""
+    let edit = "";
     if (this.state.editproduct) {
-      edit = < Modal
-        isOpen={this.state.editmodal}
-        toggle={() => this.editModal()}
-        className="modal-popup"
-        transparent={true}
-        scrollable
-      >
-        <ModalHeader toggle={() => this.editModal()} close={closeeditmodalBtn}>
-          Edit Item
-                        </ModalHeader>
-        <ModalBody className="modal-body">
-          <form >
-            <div className="form-group">
-              <label className="font-weight-bold">Item Name:</label>
-              <input
-                onChange={this.handleChange}
-                name="edititemName"
-                className="form-control"
-                type="text"
-                id="itemName"
-                defaultValue={this.state.editproduct.items.itemName}
-              ></input>
-              <label className="font-weight-bold">Quantity:</label>
-              <input
-                onChange={this.handleChange}
-                name="editQuantity"
-                className="form-control"
-                type="number"
-                defaultValue={this.state.editproduct.items.quantity}
-              ></input>
-              <label className="font-weight-bold">Price:</label>
-              <input
-                onChange={this.handleChange}
-                name="editPrice"
-                className="form-control"
-                type="number"
-                defaultValue={this.state.editproduct.items.price}
-              ></input>
-              <label className="font-weight-bold">Brand Name:</label>
-              <input
-                onChange={this.handleChange}
-                name="editBrandName"
-                className="form-control"
-                type="text"
-                defaultValue={this.state.editproduct.items.brandName}
-              ></input>
-              <br />
-            </div>
+      edit = (
+        <Modal
+          isOpen={this.state.editmodal}
+          toggle={() => this.editModal()}
+          className="modal-popup"
+          transparent={true}
+          scrollable
+        >
+          <ModalHeader
+            toggle={() => this.editModal()}
+            close={closeeditmodalBtn}
+          >
+            Edit Item
+          </ModalHeader>
+          <ModalBody className="modal-body">
+            <form>
+              <div className="form-group">
+                <label className="font-weight-bold">Item Name:</label>
+                <input
+                  onChange={this.handleChange}
+                  name="edititemName"
+                  className="form-control"
+                  type="text"
+                  id="itemName"
+                  defaultValue={this.state.editproduct.items.itemName}
+                ></input>
+                <label className="font-weight-bold">Quantity:</label>
+                <input
+                  onChange={this.handleChange}
+                  name="editQuantity"
+                  className="form-control"
+                  type="number"
+                  defaultValue={this.state.editproduct.items.quantity}
+                ></input>
+                <label className="font-weight-bold">Price:</label>
+                <input
+                  onChange={this.handleChange}
+                  name="editPrice"
+                  className="form-control"
+                  type="number"
+                  defaultValue={this.state.editproduct.items.price}
+                ></input>
+                <label className="font-weight-bold">Brand Name:</label>
+                <input
+                  onChange={this.handleChange}
+                  name="editBrandName"
+                  className="form-control"
+                  type="text"
+                  defaultValue={this.state.editproduct.items.brandName}
+                ></input>
+                <br />
+              </div>
 
-            <button className="btn btn-primary" onClick={() => this.edititem()}>
-              Submit
-            </button>
-          </form>
-        </ModalBody>
-        <ModalFooter>
-          <Button color="secondary" onClick={() => this.editModal()}>
-            Cancel
-                          </Button>
-        </ModalFooter>
-      </Modal>
+              <button
+                className="btn btn-primary"
+                onClick={() => this.edititem(this.state.editproduct.items._id)}
+              >
+                Submit
+              </button>
+            </form>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="secondary" onClick={() => this.editModal()}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
+      );
     }
     console.log("this.state: ", this.state);
     return (
@@ -272,14 +328,14 @@ class viewItems extends Component {
                     <div className="row ">
                       <div className="col">
                         {/* <br /> */}
-                        <div className="row" >{products}</div>
+                        <div className="row">{products}</div>
                       </div>
                     </div>
                   ) : (
-                      <>
-                        <h4 style={{ margin: "3em" }}>No items to display!</h4>
-                      </>
-                    )}
+                    <>
+                      <h4 style={{ margin: "3em" }}>No items to display!</h4>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -327,7 +383,6 @@ class viewItems extends Component {
               ></input>
               <br />
             </div>
-
             <button className="btn btn-primary" onClick={() => this.additem()}>
               Submit
             </button>
@@ -339,9 +394,7 @@ class viewItems extends Component {
             </Button>
           </ModalFooter>
         </Modal>
-
         {edit}
-
       </div>
     );
   }
