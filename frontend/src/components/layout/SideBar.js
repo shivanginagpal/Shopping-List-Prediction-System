@@ -6,9 +6,7 @@ class SideBar extends Component {
   render() {
     return (
       <div class="sidebar-container">
-        <div class="sidebar-logo">
-          Project Name
-  </div>
+        <div class="sidebar-logo">Project Name</div>
         <ul class="sidebar-navigation">
           <li class="header">Navigation</li>
           <li>
@@ -24,7 +22,7 @@ class SideBar extends Component {
           <li>
             <a href="#">
               <i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard
-             </a>
+            </a>
           </li>
           <li>
             <a href="#">
@@ -33,9 +31,16 @@ class SideBar extends Component {
           </li>
           <br />
           <br />
-          <br /><br /><br /><br /><br /><br /><br /><br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
           <li>
-            <a href="#">
+            <a href="/userProfile">
               <i class="fa fa-cog" aria-hidden="true"></i> Settings
             </a>
           </li>
