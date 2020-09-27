@@ -39,7 +39,7 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 const db = require('./config/keys').mongoURI;
-// const db = 'mongodb://localhost/items';
+// const db = 'mongodb://localhost/test';
 
 //connect to mongoDB
 mongoose
