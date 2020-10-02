@@ -11,13 +11,13 @@ import addList from "./list/addList";
 import viewItems from "./list/viewItems";
 import UserProfile from "./profile/UserProfile";
 import Dashboard from "./dashboard/Dashboard";
+import ItemsList from './items/ItemsList';
 
 export default class Main extends Component {
   render() {
     return (
       <div>
         {/*Render Different Component based on Route*/}
-
         <Route exact path="/" component={Landing} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
@@ -25,6 +25,7 @@ export default class Main extends Component {
         <Route exact path="/customerHome" component={CustomerHome} />
         <Route exact path="/viewItems/:listid" component={viewItems} />
         <Route exact path="/createListHome" component={CreateListHome} />
+        <Route exact path="/ItemsList" component={ItemsList} />
         <Route exact path="/userProfile" component={UserProfile} />
         <Route exact path="/dashboard" component={Dashboard}/>
       </div>

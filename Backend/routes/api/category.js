@@ -5,7 +5,6 @@ const passportAuth = passport.authenticate('jwt', { session: false });
 
 const Category = require('../../models/Category');
 
-
 //get all categories
 router.get('/categories', function(req, res) {
     Category.aggregate([
@@ -46,6 +45,7 @@ router.get('/categories/:id', function (req, res) {
             }
         });
 });
+
 //create an Category
 router.post('/categories', function (req, res) {
     var newCategory= new Category();
@@ -92,5 +92,6 @@ router.delete('/categories/:id', function (req, res) {
             }
         });
 });
+
 
 module.exports = router;

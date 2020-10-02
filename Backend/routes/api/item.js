@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+
 const passportAuth = passport.authenticate('jwt', { session: false });
 
 const Item = require('../../models/Item');
@@ -9,7 +10,10 @@ const Item = require('../../models/Item');
 //get all items
 router.get('/items', function(req, res) {
     console.log("getting all items");
-    Item.find({})
+    if(req.query.category) {
+    Item.find({
+        category: req.query.category
+    })
         .exec(function(err, items) {
             if (err) {
                 res.send('error has occured');
@@ -18,6 +22,18 @@ router.get('/items', function(req, res) {
                 res.json(items);
             }
         });
+    } else {
+        Item.find()
+            .exec(function(err, items) {
+                if (err) {
+                    res.send('error has occured');
+                } else {
+                    console.log(items);
+                    res.json(items);
+                }
+            });
+    }
+
 });
 //get an item with item id
 router.get('/items/:id', function (req, res) {
@@ -38,9 +54,9 @@ router.get('/items/:id', function (req, res) {
 router.post('/items', function (req, res) {
     var newItem = new Item();
     newItem.name = req.body.name;
-    newItem.quantity = req.body.quantity;
     newItem.category = req.body.category;
-    newItem.price = req.body.price;
+    newItem.product_id = req.body.product_id;
+    newItem.description = req.body.description;
 
 
     newItem.save(function (err, item) {
@@ -58,7 +74,7 @@ router.put('/items/:id', function (req, res) {
     Item.findByIdAndUpdate({
         _id: req.params.id
     },
-        { $set: { name: req.body.name , quantity: req.body.quantity  , price: req.body.price, category: req.body.category }},
+        { $set: { name: req.body.name, product_id: req.body.product_id, category: req.body.category,description: req.body.description }},
         { upsert: true },
         function (err, newItem) {
             if (err) {
@@ -86,3 +102,4 @@ router.delete('/items/:id', function (req, res) {
 });
 
 module.exports = router;
+

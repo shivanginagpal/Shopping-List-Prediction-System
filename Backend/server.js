@@ -42,8 +42,7 @@ app.use(passport.initialize());
 // Passport Config
 require("./config/passport")(passport);
 
-const db = require("./config/keys").mongoURI;
-// const db = 'mongodb://localhost/items';
+const db = require('./config/keys').mongoURI;
 
 //connect to mongoDB
 mongoose
