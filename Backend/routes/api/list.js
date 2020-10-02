@@ -19,7 +19,7 @@ router.get("/getUser", passportAuth, (req, res) => {
 router.delete("/deleteList", passportAuth, (req, res) => {
   console.log(req.body.list_id);
   List.deleteOne({ _id: req.body.list_id }).then(() =>
-    res.json({ success: true })
+    res.status(200).json({ success: true })
   );
 });
 
@@ -97,7 +97,7 @@ router.delete("/deleteItemFromList", passportAuth, (req, res) => {
       list.item.splice(removeIndex, 1);
 
       // Save
-      list.save().then((list) => res.json(list));
+      list.save().then((list) => res.status(200).json(list));
     })
     .catch((err) => res.status(404).json(err));
 });
@@ -117,6 +117,22 @@ router.post("/updateItemToList", passportAuth, async (req, res) => {
     },
     {
       new: true,
+    }
+  )
+    .then((list) => res.status(200).json(list))
+    .catch((err) => res.status(404).json(err));
+});
+
+router.post("/buyItemFromList", passportAuth, (req, res) => {
+  List.update(
+    {
+      _id: req.body.list_id,
+      "item._id": req.body.item_id,
+    },
+    {
+      $set: {
+        "item.$.bought": true,
+      },
     }
   )
     .then((list) => res.status(200).json(list))

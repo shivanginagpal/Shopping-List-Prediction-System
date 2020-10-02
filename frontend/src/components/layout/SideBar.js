@@ -20,7 +20,7 @@ class SideBar extends Component {
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="/dashboard">
               <i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard
             </a>
           </li>

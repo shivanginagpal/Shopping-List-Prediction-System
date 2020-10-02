@@ -10,6 +10,7 @@ import CreateListHome from "./list/CreateListHome";
 import addList from "./list/addList";
 import viewItems from "./list/viewItems";
 import UserProfile from "./profile/UserProfile";
+import Dashboard from "./dashboard/Dashboard";
 
 export default class Main extends Component {
   render() {
@@ -25,6 +26,7 @@ export default class Main extends Component {
         <Route exact path="/viewItems/:listid" component={viewItems} />
         <Route exact path="/createListHome" component={CreateListHome} />
         <Route exact path="/userProfile" component={UserProfile} />
+        <Route exact path="/dashboard" component={Dashboard}/>
       </div>
     );
   }

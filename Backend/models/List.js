@@ -29,6 +29,10 @@ const ListSchema = new Schema({
       store: {
         type: String,
       },
+      bought:{
+        type: Boolean,
+        default: false
+      },
       price: {
         type: Number,
       },
