@@ -10,6 +10,7 @@ import CreateListHome from "./list/CreateListHome";
 import addList from "./list/addList";
 import viewItems from "./list/viewItems";
 import UserProfile from "./profile/UserProfile";
+import Dashboard from "./dashboard/Dashboard";
 import ItemsList from './items/ItemsList';
 
 export default class Main extends Component {
@@ -26,6 +27,7 @@ export default class Main extends Component {
         <Route exact path="/createListHome" component={CreateListHome} />
         <Route exact path="/ItemsList" component={ItemsList} />
         <Route exact path="/userProfile" component={UserProfile} />
+        <Route exact path="/dashboard" component={Dashboard}/>
       </div>
     );
   }

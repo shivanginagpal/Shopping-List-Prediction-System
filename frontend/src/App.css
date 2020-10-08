@@ -60,29 +60,20 @@ img {
      width: 230px; 
  }
  #cardadmin-text{
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: black;
-    /* white-space: nowrap; 
-    overflow: hidden;
-    text-overflow: ellipsis;  */
-    /* white-space: initial; */
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: 600;
 }
-
 #cardadmin-title{
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: black;
-    /* white-space: nowrap; 
-    overflow: hidden;
-    text-overflow: ellipsis;  */
-    /* white-space: initial; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    border: 1;
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 span.active {
   background-color: #0099FF;
@@ -93,8 +84,29 @@ span.active {
 #cardadminclass {
   position: relative;
   top: 0;
-  transition: top ease 0.5s;
+  /* transition: top ease 0.5s; */
+  transition: transform 100ms ease-in;
+  box-shadow: 0px 6px 18px -9px rgba(0, 0, 0, 0.75);
+  border-radius: 10px;
 }
 #cardadminclass:hover {
-  top: -10px;
+  /* top: -10px; */
+  transform: scale(1.07);
+}
+
+#rmbutton {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+#buybutton {
+  margin-right: 20px;
+}
+
+#deletebtnlist {
+  margin-left: 100px;
+  margin-bottom: 10px;
+  font-size: 2rem;
 }

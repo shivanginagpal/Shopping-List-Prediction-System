@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { getID, isFieldEmpty } from "../auth/HelperApis";
 import product_image from "../../images/grocery.jpg";
+import NotificationAlert from "react-notification-alert";
+import "react-notification-alert/dist/animate.css";
 
 
 class viewItems extends Component {
@@ -23,6 +25,8 @@ class viewItems extends Component {
       editQuantity: null,
       editPrice: null,
       editBrandName: null,
+      text: "Buy",
+      tog: false,
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -34,24 +38,23 @@ class viewItems extends Component {
 
   editModal = (product) => {
     console.log("product", product);
-    if (this.state.editmodal){
-        this.setState({
-          edititemName: null,
-          editQuantity: null,
-          editPrice: null,
-          editBrandName: null,
-          editmodal: !this.state.editmodal,
-        });
-    }
-    else{
-        this.setState({
-          editproduct: product,
-          editmodal: !this.state.editmodal,
-          edititemName: product.itemName,
-          editQuantity: product.quantity,
-          editPrice: product.price,
-          editBrandName: product.brandName,
-        });
+    if (this.state.editmodal) {
+      this.setState({
+        edititemName: null,
+        editQuantity: null,
+        editPrice: null,
+        editBrandName: null,
+        editmodal: !this.state.editmodal,
+      });
+    } else {
+      this.setState({
+        editproduct: product,
+        editmodal: !this.state.editmodal,
+        edititemName: product.itemName,
+        editQuantity: product.quantity,
+        editPrice: product.price,
+        editBrandName: product.brandName,
+      });
     }
   };
 
@@ -77,7 +80,7 @@ class viewItems extends Component {
       method: "put",
       data: data,
     }).then((res) => {
-      console.log("THIS IS RESPONSE ",res);
+      console.log("THIS IS RESPONSE ", res);
       this.setState({
         items: this.state.items.concat(res.data),
       });
@@ -112,6 +115,17 @@ class viewItems extends Component {
               window.location.reload();
             })
             .catch((error) => console.log(error.response.data));
+            
+            var options = {};
+            options = {
+              place: "tr",
+              message: <div>Item added</div>,
+              type: "info",
+              icon: "fas fa-bell",
+              autoDismiss: 5,
+              closeButton: true,
+            };
+            this.refs.notify.notificationAlert(options);
         } else if (response.status === 201) {
           swal({
             title: "Sorry",
@@ -132,14 +146,14 @@ class viewItems extends Component {
 
   edititem = (itemid) => {
     const listid = this.props.match.params.listid;
-    
+
     const data = {
       list_id: listid,
       itemName: this.state.edititemName,
       quantity: this.state.editQuantity,
       price: this.state.editPrice,
       brandName: this.state.editBrandName,
-      item_id:itemid
+      item_id: itemid,
     };
     axios("/updateItemToList", {
       method: "post",
@@ -162,6 +176,59 @@ class viewItems extends Component {
     });
   };
 
+  buyitem = (itemid) => {
+    const listid = this.props.match.params.listid;
+    const data = {
+      list_id: listid,
+      item_id: itemid,
+    };
+    console.log("BUYITEM", data);
+    axios("/buyItemFromList", {
+      method: "Post",
+      data: data,
+    }).then((response) => {
+      console.log(response);
+      if (response.status === 200) {
+        swal({
+          title: "Success",
+          text: "Bought successfully",
+          icon: "success",
+          button: "OK",
+        })
+          .then(() => {
+            window.location.reload();
+          })
+          .catch((error) => console.log(error.response.data));
+      }
+    });
+  };
+
+  removeitem = (itemid) => {
+    const listid = this.props.match.params.listid;
+    const data = {
+      list_id: listid,
+      item_id: itemid,
+    };
+    axios("/deleteItemFromList", {
+      method: "delete",
+      data: data,
+    }).then((response) => {
+      console.log(response);
+      if (response.status === 200) {
+        swal({
+          title: "Success",
+          text: "Item removed successfully",
+          icon: "success",
+          button: "OK",
+        })
+          .then(() => {
+            window.location.reload();
+          })
+          .catch((error) => console.log(error.response.data));
+      }
+    });
+  } 
+
   render() {
     const closeBtn = (
       <button className="close" onClick={() => this.showModal()}>
@@ -177,7 +244,7 @@ class viewItems extends Component {
     let products;
 
     console.log("ITEMS ===", this.state.items[0]);
-      
+
     if (this.state.items[0] != undefined) {
       let items = this.state.items[0];
       console.log("ITEMS ARRAY ", items.item);
@@ -200,25 +267,46 @@ class viewItems extends Component {
                   />
                   <div className="card-block" id="cardadmin-title-text">
                     <h6 className="card-title lead" id="cardadmin-title">
-                      {product.itemName}
+                      <span>{product.itemName}</span>
+                      <span>
+                        <button
+                          disabled={product.bought}
+                          className="btn btn-primary"
+                          id="buybutton"
+                          onClick={() =>
+                            this.buyitem(product._id)
+                          }
+                        >
+                          {product.bought ? "Bought" : "Buy"}
+                        </button>
+                      </span>
                     </h6>
                     <p className="card-text lead" id="cardadmin-text">
-                      {product.quantity}
+                     Quantity : {product.quantity}
                     </p>
                     <p className="card-text lead" id="cardadmin-text">
-                      {product.brandName}
+                      Brand : {product.brandName}
                     </p>
 
                     <span>
                       <p className="card-text lead" id="cardadmin-text">
-                        ${product.price}
+                        Price : ${product.price}
                       </p>
                     </span>
                     <button
                       className="btn btn-primary"
+                      id="rmbutton"
                       onClick={() => this.editModal(product)}
                     >
                       Edit
+                    </button>
+                    <span>&emsp;&emsp;&emsp;</span>
+                    <button
+                      className="btn btn-danger"
+                      id="rmbutton"
+                      onClick={() => this.removeitem(product._id)}
+                    >
+                      Remove
                     </button>
                   </div>
                 </div>
@@ -309,6 +397,7 @@ class viewItems extends Component {
             <SideBar />
           </div>
           <div className="col-10">
+            <NotificationAlert ref="notify" />
             <div className="row">
               <button
                 type="button"

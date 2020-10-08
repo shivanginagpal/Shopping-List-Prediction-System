@@ -40,7 +40,29 @@ class addList extends Component {
       console.log(this.state.lists);
     });
   }
-
+  deletelist = (listid) => {
+    const data = {
+      list_id : listid
+    }
+    axios("/deleteList", {
+      method: "delete",
+      data: data,
+    }).then((response) => {
+      console.log(response);
+      if (response.status === 200) {
+        swal({
+          title: "Success",
+          text: "List removed successfully",
+          icon: "success",
+          button: "OK",
+        })
+          .then(() => {
+            window.location.reload();
+          })
+          .catch((error) => console.log(error.response.data));
+      }
+    });
+  }
   addlist = (e) => {
     const data = {
       listName: this.state.listName,
@@ -89,50 +111,45 @@ class addList extends Component {
       </button>
     );
 
-    let listheaders = this.state.lists.map(viewlist => {
-      let url =
-        "http://" +
-        hostaddress +
-        ":3000/viewItems/" +
-        viewlist._id;
-        return (
-          <div class="card w-100" id="eventscard">
-            <div class="card-body">
-              <div className="row">
-                <h5 class="card-title col-7" id="eventtext">
-                  List name: {viewlist.listName}
-                </h5>
-                <div className="col-3">
-                  {/* <button
-                    type="button"
-                    class="btn btn-outline-success"
-                    // onClick={() => this.showModal1(viewevent)}
-                  >
-                    View items
-                  </button> */}
-                </div>
-                <div className="col-2">
-                  <a href={url}
-                    type="button"
-                    class="btn btn-outline-success"
-                  >
-                    view items
-                  </a>
-                </div>
-              </div>
-              <p class="card-text" id="eventtext">
-                {/* Company Name: {viewevent.company_name} */}
-              </p>
-              <p class="card-text" id="eventtext">
-                No.of items in the list: {}
-              </p>
-              <div className="row">
-                <div className="col-10"></div>
+    let listheaders = this.state.lists.map((viewlist) => {
+      let url = "http://" + hostaddress + ":3000/viewItems/" + viewlist._id;
+      return (
+        <div class="card w-100" id="eventscard">
+          <div class="card-body">
+            <div className="row">
+              <h5 class="card-title col-7" id="eventtext">
+                List name: {viewlist.listName}
+              </h5>
+              <div className="col-3"></div>
+              <div className="col-2">
+                <span>
+                  <div className="row">
+                    <button
+                      type="button"
+                      className="close"
+                      id="deletebtnlist"
+                      aria-label="Close"
+                      onClick={() => this.deletelist(viewlist._id)}
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                </span>
+                <a href={url} type="button" class="btn btn-outline-success">
+                  view items
+                </a>
               </div>
             </div>
+            <p class="card-text" id="eventtext">
+              No.of items in the list: {}
+            </p>
+            <div className="row">
+              <div className="col-10"></div>
+            </div>
           </div>
-        );
-    })
+        </div>
+      );
+    });
 
     return (
       <div>
@@ -156,14 +173,10 @@ class addList extends Component {
                 <div className="dash-one">
                   <h4 className="font-weight-bold">Your Lists</h4>
                   {this.state.lists.length > 0 ? (
-                    <div className="col-10">
-                      {listheaders}
-                    </div>
+                    <div className="col-10">{listheaders}</div>
                   ) : (
                     <div>
-                      <h4 style={{ margin: "3em" }}>
-                        No lists to display!
-                      </h4>
+                      <h4 style={{ margin: "3em" }}>No lists to display!</h4>
                     </div>
                   )}
                 </div>
