@@ -11,7 +11,7 @@ var category = require("./routes/api/category");
 
 const app = express();
 app.set("view engine", "ejs");
-const port = process.env.PORT || 5005;
+const port = process.env.PORT || 5006;
 
 //use cors to allow cross origin resource sharing
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
@@ -42,7 +42,7 @@ app.use(passport.initialize());
 // Passport Config
 require("./config/passport")(passport);
 
-const db = require('./config/keys').mongoURI;
+const db = require("./config/keys").mongoURI;
 
 //connect to mongoDB
 mongoose
