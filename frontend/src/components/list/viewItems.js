@@ -258,7 +258,7 @@ class viewItems extends Component {
             <div id="itemAdminRight">
               <div className="col">
                 <div className="card" id="cardadminclass">
-                  {/* {unknown} */}
+                  
                   <img
                     src={productimg}
                     className="card-img-top"
@@ -420,7 +420,7 @@ class viewItems extends Component {
                         <div className="row">{products}</div>
                       </div>
                     </div>
-                  ) : (
+                  ) : (     
                     <div>
                       <h4 style={{ margin: "3em" }}>No items to display!</h4>
                     </div>

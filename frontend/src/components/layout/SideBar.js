@@ -25,6 +25,11 @@ class SideBar extends Component {
             </a>
           </li>
           <li>
+            <a href="/Map">
+              <i class="fas fa-map-marker-alt" aria-hidden="true"></i>  Maps
+            </a>
+          </li>
+          <li>
             <a href="#">
               <i class="fa fa-users" aria-hidden="true"></i> Friends
             </a>
