@@ -17,7 +17,7 @@ router.get("/getUser", passportAuth, (req, res) => {
 });
 
 router.delete("/deleteList", passportAuth, (req, res) => {
-  console.log(req.body.list_id);
+  //console.log(req.body.list_id);
   List.deleteOne({ _id: req.body.list_id }).then(() =>
     res.status(200).json({ success: true })
   );
@@ -25,7 +25,7 @@ router.delete("/deleteList", passportAuth, (req, res) => {
 
 //Create New Shopping List
 router.post("/createNewList", passportAuth, (req, res) => {
-  console.log("body ", req.body);
+  //console.log("body ", req.body);
   const listFields = {};
   listFields.user = req.user._id;
   listFields.listName = req.body.listName;
@@ -38,7 +38,7 @@ router.post("/createNewList", passportAuth, (req, res) => {
 });
 
 router.get("/getList", passportAuth, (req, res) => {
-  console.log("body :", req.user._id);
+  //console.log("body :", req.user._id);
   List.find({ user: ObjectId(req.user._id) })
     .then((result) => {
       console.log("messages retreived", result);
@@ -51,25 +51,8 @@ router.get("/getList", passportAuth, (req, res) => {
     });
 });
 
-//Adding Item To List
-// router.put("/addItemToList", passportAuth, (req, res) => {
-//   console.log("body ", req.body);
-//   List.findOne({ _id: req.body.list_id }).then((list) => {
-//     const newItem = {};
-//     if (req.body.itemName) newItem.itemName = req.body.itemName;
-//     if (req.body.quantity) newItem.quantity = req.body.quantity;
-//     if (req.body.store) newItem.store = req.body.store;
-//     if (req.body.brandName) newItem.brandName = req.body.brandName;
-//     if (req.body.price) newItem.price = req.body.price;
-
-//     // Add to item array
-//     list.item.unshift(newItem);
-//     list.save().then((list) => res.status(200).json(list));
-//   });
-// });
-
 router.put("/addItemToList", passportAuth, (req, res) => {
-  console.log("body ", req.body);
+  //console.log("body ", req.body);
   List.findOne({ _id: req.body.list_id }).then((list) => {
     const newItem = {};
     if (req.body.itemName) newItem.itemName = req.body.itemName;
@@ -101,7 +84,7 @@ router.put("/getitemsfromList", passportAuth, (req, res) => {
 
 //Deleting Item To List
 router.delete("/deleteItemFromList", passportAuth, (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
 
   List.findOne({ _id: req.body.list_id })
     .then((list) => {
@@ -120,7 +103,7 @@ router.delete("/deleteItemFromList", passportAuth, (req, res) => {
 });
 
 router.post("/updateItemToList", passportAuth, async (req, res) => {
-  console.log("body ", req.body);
+  //console.log("body ", req.body);
   let item = {};
   if (req.body.itemName) item.itemName = req.body.itemName;
   if (req.body.quantity) item.quantity = req.body.quantity;

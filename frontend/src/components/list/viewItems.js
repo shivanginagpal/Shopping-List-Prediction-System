@@ -4,9 +4,7 @@ import SideBar from "../layout/SideBar";
 import DisplayAddItems from "./DisplayAddItems";
 import axios from "axios";
 import swal from "sweetalert";
-import { Link } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { getID, isFieldEmpty } from "../auth/HelperApis";
 import product_image from "../../images/grocery.jpg";
 import NotificationAlert from "react-notification-alert";
 import "react-notification-alert/dist/animate.css";
@@ -91,62 +89,6 @@ class viewItems extends Component {
       });
       console.log("This is p", this.state.items[0].item);
     });
-  };
-
-  additem = (e) => {
-    const listid = this.props.match.params.listid;
-    const data = {
-      list_id: listid,
-      itemName: this.state.itemName,
-      quantity: this.state.Quantity,
-      price: this.state.Price,
-      brandName: this.state.BrandName,
-    };
-    axios("/addItemToList", {
-      method: "put",
-      data: data,
-    })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          this.showModal();
-          swal({
-            title: "Success",
-            text: "Item added successfully",
-            icon: "success",
-            button: "OK",
-          })
-            .then(() => {
-              window.location.reload();
-            })
-            .catch((error) => console.log(error.response.data));
-            
-            var options = {};
-            options = {
-              place: "tr",
-              message: <div>Item added</div>,
-              type: "info",
-              icon: "fas fa-bell",
-              autoDismiss: 5,
-              closeButton: true,
-            };
-            this.refs.notify.notificationAlert(options);
-        } else if (response.status === 201) {
-          swal({
-            title: "Sorry",
-            text: "List already exists",
-            icon: "error",
-            button: "OK",
-          })
-            .then(() => {
-              window.location.reload();
-            })
-            .catch((error) => console.log(error.response.data));
-        }
-      })
-      .catch((error) => {
-        console.log("add project not 2xx response");
-      });
   };
 
   edititem = (itemid) => {
@@ -236,12 +178,6 @@ class viewItems extends Component {
   } 
 
   render() {
-    const closeBtn = (
-      <button className="close" onClick={() => this.showModal()}>
-        &times;
-      </button>
-    );
-
     const closeeditmodalBtn = (
       <button className="close" onClick={() => this.editModal()}>
         &times;
@@ -394,7 +330,7 @@ class viewItems extends Component {
         </Modal>
       );
     }
-    //console.log("this.state: ", this.state);
+    
     return (
       <div>
         <CustomerNavbar />
@@ -406,14 +342,6 @@ class viewItems extends Component {
             <NotificationAlert ref="notify" />
             <div className="row">
               <DisplayAddItems listid={this.props.match.params.listid} />
-              {/* <button
-                type="button"
-                class="btn btn-success"
-                id="addListbtn"
-                onClick={() => this.showModal()}
-              >
-                Add Item
-              </button> */}
             </div>
 
             <div className="row justify-content-center align-items-center">
@@ -437,59 +365,6 @@ class viewItems extends Component {
             </div>
           </div>
         </div>
-        <Modal
-          isOpen={this.state.modal}
-          toggle={() => this.showModal()}
-          className="modal-popup"
-          scrollable
-        >
-          <ModalHeader toggle={() => this.showModal()} close={closeBtn}>
-            Add Item
-          </ModalHeader>
-          <ModalBody className="modal-body">
-            {/* <form > */}
-            <div className="form-group">
-              <label className="font-weight-bold">Item Name:</label>
-              <input
-                onChange={this.handleChange}
-                name="itemName"
-                className="form-control"
-                type="text"
-              ></input>
-              <label className="font-weight-bold">Quantity:</label>
-              <input
-                onChange={this.handleChange}
-                name="Quantity"
-                className="form-control"
-                type="text"
-              ></input>
-              <label className="font-weight-bold">Price:</label>
-              <input
-                onChange={this.handleChange}
-                name="Price"
-                className="form-control"
-                type="text"
-              ></input>
-              <label className="font-weight-bold">Brand Name:</label>
-              <input
-                onChange={this.handleChange}
-                name="BrandName"
-                className="form-control"
-                type="text"
-              ></input>
-              <br />
-            </div>
-            <button className="btn btn-primary" onClick={() => this.additem()}>
-              Submit
-            </button>
-            {/* </form> */}
-          </ModalBody>
-          <ModalFooter>
-            <Button color="secondary" onClick={() => this.showModal()}>
-              Cancel
-            </Button>
-          </ModalFooter>
-        </Modal>
         {edit}
       </div>
     );

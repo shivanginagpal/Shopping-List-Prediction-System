@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from "axios";
 import swal from "sweetalert";
 import "./additem.css";
+import NotificationAlert from "react-notification-alert";
+import "react-notification-alert/dist/animate.css";
 
 class DisplayAddItems extends Component {
   constructor(props) {
@@ -87,7 +89,6 @@ class DisplayAddItems extends Component {
                 window.location.reload();
               })
               .catch((error) => console.log(error.response.data));
-
             var options = {};
             options = {
               place: "tr",
@@ -125,6 +126,7 @@ console.log("THIS IS THE SELECTED ITEM", this.state.itemObj);
     return (
       <div>
         <div className="row">
+          <NotificationAlert ref="notify" />
           <div className="col-6">
             <div className="additem">
               <input
