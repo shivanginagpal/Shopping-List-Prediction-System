@@ -97,7 +97,6 @@ class ItemListSelector extends React.Component {
           <br></br>
           <br></br>
           <button id="add_me" onClick={this.handleAddToList.bind(this)}>Add to List</button>
-
           <button id="close_me" onClick={this.props.closeItemListSelector} >Close</button>
         </div>
       </div>

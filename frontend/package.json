@@ -27,7 +27,7 @@
     "redux-thunk": "^2.3.0",
     "sweetalert": "^2.1.2"
   },
-  "proxy": "http://localhost:5005",
+  "proxy": "http://localhost:5006",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

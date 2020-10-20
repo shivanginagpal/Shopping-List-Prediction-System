@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CustomerNavbar from "../customer/CustomerNavbar";
 import SideBar from "../layout/SideBar";
+import DisplayAddItems from "./DisplayAddItems";
 import axios from "axios";
 import swal from "sweetalert";
 import { Link } from "react-router-dom";
@@ -9,6 +10,7 @@ import { getID, isFieldEmpty } from "../auth/HelperApis";
 import product_image from "../../images/grocery.jpg";
 import NotificationAlert from "react-notification-alert";
 import "react-notification-alert/dist/animate.css";
+
 
 
 class viewItems extends Component {
@@ -20,6 +22,7 @@ class viewItems extends Component {
       Quantity: "",
       Price: "",
       BrandName: "",
+      product_id:"",
       editmodal: false,
       edititemName: null,
       editQuantity: null,
@@ -44,12 +47,14 @@ class viewItems extends Component {
         editQuantity: null,
         editPrice: null,
         editBrandName: null,
+        product_id:product.product_id,
         editmodal: !this.state.editmodal,
       });
     } else {
       this.setState({
         editproduct: product,
         editmodal: !this.state.editmodal,
+        product_id: product.product_id,
         edititemName: product.itemName,
         editQuantity: product.quantity,
         editPrice: product.price,
@@ -153,6 +158,7 @@ class viewItems extends Component {
       quantity: this.state.editQuantity,
       price: this.state.editPrice,
       brandName: this.state.editBrandName,
+      product_id:this.state.product_id,
       item_id: itemid,
     };
     axios("/updateItemToList", {
@@ -399,14 +405,15 @@ class viewItems extends Component {
           <div className="col-10">
             <NotificationAlert ref="notify" />
             <div className="row">
-              <button
+              <DisplayAddItems listid={this.props.match.params.listid} />
+              {/* <button
                 type="button"
                 class="btn btn-success"
                 id="addListbtn"
                 onClick={() => this.showModal()}
               >
                 Add Item
-              </button>
+              </button> */}
             </div>
 
             <div className="row justify-content-center align-items-center">
@@ -420,7 +427,7 @@ class viewItems extends Component {
                         <div className="row">{products}</div>
                       </div>
                     </div>
-                  ) : (     
+                  ) : (
                     <div>
                       <h4 style={{ margin: "3em" }}>No items to display!</h4>
                     </div>

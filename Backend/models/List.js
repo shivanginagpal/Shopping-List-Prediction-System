@@ -17,7 +17,7 @@ const ListSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  item: [ 
+  item: [
     {
       itemName: {
         type: String,
@@ -29,9 +29,12 @@ const ListSchema = new Schema({
       store: {
         type: String,
       },
-      bought:{
+      bought: {
         type: Boolean,
-        default: false
+        default: false,
+      },
+      product_id: {
+        type: Number,
       },
       price: {
         type: Number,

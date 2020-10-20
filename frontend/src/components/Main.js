@@ -14,6 +14,7 @@ import Dashboard from "./dashboard/Dashboard";
 import ItemsList from './items/ItemsList';
 import Map from "./dashboard/Map";
 
+
 export default class Main extends Component {
   render() {
     return (
@@ -28,8 +29,10 @@ export default class Main extends Component {
         <Route exact path="/createListHome" component={CreateListHome} />
         <Route exact path="/ItemsList" component={ItemsList} />
         <Route exact path="/userProfile" component={UserProfile} />
-        <Route exact path="/dashboard" component={Dashboard}/>
+        <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/Map" component={Map} />
+
+        
       </div>
     );
   }
