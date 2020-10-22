@@ -1,0 +1,5 @@
+﻿order_id,user_id,eval_set,order_number,order_dow,order_hour_of_day,days_since_prior_order
+250000,111111,prior,1,6,8,0
+250001,111111,prior,2,4,9,15
+250002,111111,prior,3,3,17,21
+250003,111111,test,4,6,17,15

@@ -5,5 +5,5 @@ DataModel/server/etc
 DataModel/server/include
 DataModel/server/lib
 DataModel/server/share
-DataModel/server/config
+DataModel/server/config/keys.py
 DataModel/server/df_test.csv

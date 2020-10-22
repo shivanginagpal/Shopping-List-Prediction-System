@@ -11,9 +11,9 @@ import addList from "./list/addList";
 import viewItems from "./list/viewItems";
 import UserProfile from "./profile/UserProfile";
 import Dashboard from "./dashboard/Dashboard";
-import ItemsList from './items/ItemsList';
+import ItemsList from "./items/ItemsList";
 import Map from "./dashboard/Map";
-
+import Recommendation from "./recommendations/Recommendation";
 
 export default class Main extends Component {
   render() {
@@ -31,8 +31,7 @@ export default class Main extends Component {
         <Route exact path="/userProfile" component={UserProfile} />
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/Map" component={Map} />
-
-        
+        <Route exact path="/recommendations" component={Recommendation} />
       </div>
     );
   }
