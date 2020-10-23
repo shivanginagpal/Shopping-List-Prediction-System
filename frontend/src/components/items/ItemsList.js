@@ -18,12 +18,14 @@ class ItemsList extends React.Component {
       category: 'Fruits and Vegetables',
       categoryList: [],
       showItemListSelector: false,
+      selectedItem: null
     };
   }
 
-  toggleItemListSelector() {
+  toggleItemListSelector(selectedItem) {
     this.setState({
-      showItemListSelector: !this.state.showItemListSelector
+      showItemListSelector: !this.state.showItemListSelector,
+      selectedItem: selectedItem
     });
   }
 
@@ -71,7 +73,6 @@ class ItemsList extends React.Component {
   }
 
   render() {
-   
     const { error, isLoaded, items } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
@@ -81,20 +82,20 @@ class ItemsList extends React.Component {
       return (
         <div>
           <CustomerNavbar />
-          
-            <h3>Shop Popular Items</h3>
-            
-            < br />
-            <CategoryList categoriesList={this.state.categoryList} func={this.handleCategoryChange.bind(this)} />
 
-          
+          <h3>Shop Popular Items</h3>
 
-            < br />
-            < br />
-            <div class ="row">
+          < br />
+          <CategoryList categoriesList={this.state.categoryList} func={this.handleCategoryChange.bind(this)} />
+
+         
+
+          < br />
+          < br />
+          <div className="row">
             {items.map(item => (
-             
-              <div id="itemAdminRight">
+
+              <div id="itemAdminRight" key={item._id}>
                 <div className="col">
                   <div className="card" id="cardadminclass">
                     {/* {unknown} */}
@@ -105,31 +106,32 @@ class ItemsList extends React.Component {
                       alt="..."
                     />
                     <div className="card-block" id="cardadmin-title-text">
-                  
-              <div className="dash-one" key={item._id}>
-              <h6 className="card-title lead" id="cardadmin-title">{item.name} </h6>
-                {/* <p>Quantity: {item.quantity}</p> */}
-                {/* <p><strong>Category:</strong> {item.category}</p> */}
-                {<p><strong>Description:</strong> {item.description}</p>}
-                <input type="number" id="number" min="0" max="100" />
-                <button onClick={this.toggleItemListSelector.bind(this)}>Add to List</button>
-                {this.state.showItemListSelector ?
-                  <ItemListSelector
-                    item={item}
-                    closeItemListSelector={this.toggleItemListSelector.bind(this)} onClick={this.handleClick}
-                  />
-                  : null
-                }
-              </div>
-              </div>
-              </div>
-              </div>
-              </div>
-             
-            ))}
-             </div>
 
-          
+                      <div className="dash-one" key={item._id}>
+                        <h6 className="card-title lead" id="cardadmin-title">{item.name} </h6>
+                        {/* <p>Quantity: {item.quantity}</p> */}
+                        {/* <p><strong>Category:</strong> {item.category}</p> */}
+                        {<p><strong>Description:</strong> {item.description}</p>}
+                        <input type="number" id="number" min="0" max="100" />
+                        <button onClick={this.toggleItemListSelector.bind(this, item)}>Add to List</button>
+                        {this.state.showItemListSelector ?
+                          <ItemListSelector
+                            item={item}
+                            selectedItem={this.state.selectedItem}
+                            closeItemListSelector={this.toggleItemListSelector.bind(this, item)} onClick={this.handleClick}
+                          />
+                          : null
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            ))}
+          </div>
+
+
 
         </div>
       );

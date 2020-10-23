@@ -22,7 +22,7 @@
  
 }
 .popup {
-   position: fixed;
+   position: absolute;
    width: 100%;
    height: 100%;
    top: 0;
@@ -32,15 +32,22 @@
    margin: auto;
    background-color: rgba(0,0,0, 0.1);
  }
- .popup_inner {
+ .list_in {
    position: absolute;
-   left: 30%;
+   width: 100%;
+   height: 100%;
+   /* left: 30%;
    right: 30%;
    top: 20%;
-   bottom: 20%;
+   bottom: 20%; */
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
    margin: auto;
-   border-radius: 30px;
-   background: white;
+   border-radius: 30px solid 1px;
+   background-color: white;
+   
  }
  #lists_Name{
     height:10%;
@@ -55,4 +62,8 @@
  #add_me{
    padding:5px;
    margin: 10px;
+}
+.selectlist{
+   font:bold;
+   width: 10%;
 }
