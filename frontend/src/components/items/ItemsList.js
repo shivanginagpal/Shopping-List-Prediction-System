@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { hostaddress } from "../auth/settings";
 import CustomerNavbar from "../customer/CustomerNavbar";
-import './ItemsList.css';
+// import './ItemsList.css';
 import CategoryList from '../categories/CategoryList';
 import ItemListSelector from './ItemListSelector';
 import product_image from "../../images/grocery.jpg";
+ import '../../App.css';
 
 
 
@@ -114,7 +115,13 @@ class ItemsList extends React.Component {
                         {<p><strong>Description:</strong> {item.description}</p>}
                         <input type="number" id="number" min="0" max="100" />
                         <button onClick={this.toggleItemListSelector.bind(this, item)}>Add to List</button>
+                        </div>
+                             </div>
+                             </div>
+                           </div>
+                           
                         {this.state.showItemListSelector ?
+                            
                           <ItemListSelector
                             item={item}
                             selectedItem={this.state.selectedItem}
@@ -122,10 +129,8 @@ class ItemsList extends React.Component {
                           />
                           : null
                         }
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                 
+                
               </div>
 
             ))}
@@ -140,4 +145,5 @@ class ItemsList extends React.Component {
 }
 
 export default ItemsList;
+
 

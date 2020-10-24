@@ -1,8 +1,9 @@
 import React from 'react';
-import './ItemsList.css';
+// import './ItemsList.css';
 import axios from "axios";
 import swal from "sweetalert";
 import { hostaddress } from "../auth/settings";
+import '../../App.css';
 
 class ItemListSelector extends React.Component {
 
@@ -78,16 +79,14 @@ class ItemListSelector extends React.Component {
   }
 
   render() {
-    console.log(this.props.selectedItem._id);
-    console.log(this.props.item._id);
     if(this.props.selectedItem._id !== this.props.item._id) {
-      console.log('returning....');
       return null;
     }
     return (
       <div className='popup'>
         <div className='popup_inner'>
           <h1>{'Select from the below list'}</h1>
+          <br></br>
           <select id="list_dropdown" onChange={(event) => {
             this.setState({
               selectedListName: event.target.value,
