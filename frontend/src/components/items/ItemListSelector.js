@@ -76,6 +76,7 @@ class ItemListSelector extends React.Component {
       .catch((error) => {
         console.log("add project not 2xx response");
       });
+      this.props.closeItemListSelector();
   }
 
   render() {
