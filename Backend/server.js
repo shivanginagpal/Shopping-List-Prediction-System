@@ -11,7 +11,7 @@ var category = require("./routes/api/category");
 
 const app = express();
 app.set("view engine", "ejs");
-const port = process.env.PORT || 5006;
+const port = process.env.PORT || 5005;
 
 //use cors to allow cross origin resource sharing
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
