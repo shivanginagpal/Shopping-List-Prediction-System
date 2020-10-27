@@ -5,10 +5,8 @@ import CustomerNavbar from "../customer/CustomerNavbar";
 import CategoryList from '../categories/CategoryList';
 import ItemListSelector from './ItemListSelector';
 import product_image from "../../images/grocery.jpg";
- import '../../App.css';
-
-
-
+import '../../App.css';
+import { isFieldEmpty } from "../auth/HelperApis";
 
 class ItemsList extends React.Component {
   constructor(props) {
@@ -29,8 +27,6 @@ class ItemsList extends React.Component {
       selectedItem: selectedItem
     });
   }
-
-
 
   componentDidMount() {
     fetch("http://" + hostaddress + ":3000/categories")
@@ -75,11 +71,13 @@ class ItemsList extends React.Component {
 
   render() {
     const { error, isLoaded, items } = this.state;
+    console.log(items);
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
+
       return (
         <div>
           <CustomerNavbar />
@@ -89,19 +87,20 @@ class ItemsList extends React.Component {
           < br />
           <CategoryList categoriesList={this.state.categoryList} func={this.handleCategoryChange.bind(this)} />
 
-         
-
           < br />
           < br />
           <div className="row">
             {items.map(item => (
 
-              <div id="itemAdminRight" key={item._id}>
+              < div id="itemAdminRight" key={item._id} >
                 <div className="col">
                   <div className="card" id="cardadminclass">
                     {/* {unknown} */}
                     <img
-                      src={product_image}
+                      src={isFieldEmpty(item.item_image)
+                        ? product_image
+                        : item.item_image
+                      }
                       className="card-img-top"
                       id="cardadmin-img-top"
                       alt="..."
@@ -115,22 +114,23 @@ class ItemsList extends React.Component {
                         {<p><strong>Description:</strong> {item.description}</p>}
                         <input type="number" id="number" min="0" max="100" />
                         <button onClick={this.toggleItemListSelector.bind(this, item)}>Add to List</button>
-                        </div>
-                             </div>
-                             </div>
-                           </div>
-                           
-                        {this.state.showItemListSelector ?
-                            
-                          <ItemListSelector
-                            item={item}
-                            selectedItem={this.state.selectedItem}
-                            closeItemListSelector={this.toggleItemListSelector.bind(this, item)} onClick={this.handleClick}
-                          />
-                          : null
-                        }
-                 
-                
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {
+                  this.state.showItemListSelector ?
+
+                    <ItemListSelector
+                      item={item}
+                      selectedItem={this.state.selectedItem}
+                      closeItemListSelector={this.toggleItemListSelector.bind(this, item)} onClick={this.handleClick}
+                    />
+                    : null
+                }
+
+
               </div>
 
             ))}
@@ -138,7 +138,7 @@ class ItemsList extends React.Component {
 
 
 
-        </div>
+        </div >
       );
     }
   }
