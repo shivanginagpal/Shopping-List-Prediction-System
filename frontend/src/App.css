@@ -242,3 +242,83 @@ border-radius: 10px;
 .carcontent{
   padding-bottom: 10px;
 }
+
+
+      
+      .items_List{
+        background-color:rgb(140, 222, 233);
+        width: 20%;
+        height: 50%;
+        display: inline;
+        border: 1px solid #000;
+        margin: 30px;
+        Text-align: center;
+        border-radius:30px;
+    }
+    
+    .items_List #number {
+       margin-right: 10px;
+    }
+    
+    #category_dropdown{
+       width: 300px;
+     height: 50px;
+     
+    }
+
+
+    .popup {
+       position: fixed;
+       width: 50%;
+       height: 50%;
+       top:10px;
+       left: 0;
+       right: 0;
+       bottom: 0;
+       margin: auto;
+       background-color: white;
+       border: 1px solid #000;
+       z-index:1;
+
+    
+       
+     }
+     .popup .popup-inner {
+       position: relative;
+       left: 50%;
+       right: 50%;
+       top: 50%;
+       bottom: 50%;
+       top: 0;
+       left: 0;
+       right: 0;
+       bottom: 0;
+       margin: auto;
+       border: #000 solid 1px;
+       background-color: white;
+       z-index:2;
+       
+     }
+     #lists_Name{
+        height:10%;
+        width: 50%;
+     }
+    
+     #close_me{
+        padding:5px;
+        margin: 10px;
+     }
+    
+     #add_me{
+       padding:5px;
+       margin: 10px;
+    }
+    .selectlist{
+       font:bold;
+       width: 10%;
+    }
+
+    #list_dropdown{
+      width: 50%;
+      height: 40px;
+    }

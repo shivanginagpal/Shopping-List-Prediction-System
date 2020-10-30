@@ -1,10 +1,8 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const passport = require('passport');
-
-const passportAuth = passport.authenticate('jwt', { session: false });
-
-const Item = require('../../models/Item');
+const helper = require("../../config/helper");
+const uploadFileToS3 = require("../../config/awsImageUpload");
+const Item = require("../../models/Item");
 
 // router.get("/getList", passportAuth, (req, res) => {
 //     console.log("body :", req.user._id);
@@ -25,56 +23,64 @@ router.get("/items", (req, res) => {
     console.log("getting all items");
     if (req.query.category) {
         Item.find({
-            category: req.query.category
-        })
-            .exec(function (err, items) {
-                if (err) {
-                    res.send('error has occured');
-                } else {
-                    console.log(items);
-                    res.json(items);
-                }
-            });
-    } else {
-        Item.find()
-            .exec(function (err, items) {
-                if (err) {
-                    res.send('error has occured');
-                } else {
-                   // console.log(items);
-                    res.json(items);
-                }
-            });
-    }
-
-});
-//get an item with item id
-router.get('/items/:id', function (req, res) {
-    //console.log('getting one item');
-    Item.findOne({
-        _id: req.params.id
-    })
-        .exec(function (err, items) {
+            category: req.query.category,
+        }).exec(function (err, items) {
             if (err) {
-                res.send('error occurred');
+                res.send("error has occured");
             } else {
                 console.log(items);
                 res.json(items);
             }
         });
+    } else {
+        Item.find().exec(function (err, items) {
+            if (err) {
+                res.send("error has occured");
+            } else {
+                console.log(items);
+                res.json(items);
+            }
+        });
+    }
+});
+//get an item with item id
+router.get("/items/:id", function (req, res) {
+    console.log("getting one item");
+    Item.findOne({
+        _id: req.params.id,
+    }).exec(function (err, items) {
+        if (err) {
+            res.send("error occurred");
+        } else {
+            console.log(items);
+            res.json(items);
+        }
+    });
 });
 //create an item
-router.post('/items', function (req, res) {
+router.post("/items", helper.upload.single("file"), async function (req, res) {
+    console.log(req.body);
+    console.log(req.file.filename);
+    let imageUrl = "";
+    if (req.file) {
+        try {
+            imageUrl = await uploadFileToS3(req.file, 'items', req.body.product_id);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    console.log(imageUrl);
     var newItem = new Item();
     newItem.name = req.body.name;
     newItem.category = req.body.category;
     newItem.product_id = req.body.product_id;
     newItem.description = req.body.description;
-
+    newItem.item_image = imageUrl.Location;
 
     newItem.save(function (err, item) {
         if (err) {
-            res.send('error saving items');
+            res.send("error saving items");
         } else {
             console.log(item);
             res.send(item);
@@ -83,36 +89,46 @@ router.post('/items', function (req, res) {
 });
 
 //update an item
-router.put('/items/:id', function (req, res) {
-    Item.findByIdAndUpdate({
-        _id: req.params.id
-    },
-        { $set: { name: req.body.name, product_id: req.body.product_id, category: req.body.category, description: req.body.description } },
+router.put("/items/:id", function (req, res) {
+    Item.findByIdAndUpdate(
+        {
+            _id: req.params.id,
+        },
+        {
+            $set: {
+                name: req.body.name,
+                product_id: req.body.product_id,
+                category: req.body.category,
+                description: req.body.description,
+            },
+        },
         { upsert: true },
         function (err, newItem) {
             if (err) {
-                res.send('error occured');
+                res.send("error occured");
             } else {
                 console.log(newItem);
                 res.status(204).send();
             }
-        });
+        }
+    );
 });
 
 //deleting an item
-router.delete('/items/:id', function (req, res) {
-    Item.findOneAndRemove({
-        _id: req.params.id
-    },
+router.delete("/items/:id", function (req, res) {
+    Item.findOneAndRemove(
+        {
+            _id: req.params.id,
+        },
         function (err, item) {
             if (err) {
-                console.send('error deleteng');
+                console.send("error deleteng");
             } else {
                 console.log(item);
                 res.status(204);
             }
-        });
+        }
+    );
 });
 
 module.exports = router;
-

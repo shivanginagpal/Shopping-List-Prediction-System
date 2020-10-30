@@ -1,8 +1,9 @@
 import React from 'react';
-import './ItemsList.css';
+// import './ItemsList.css';
 import axios from "axios";
 import swal from "sweetalert";
 import { hostaddress } from "../auth/settings";
+import '../../App.css';
 
 class ItemListSelector extends React.Component {
 
@@ -21,21 +22,20 @@ class ItemListSelector extends React.Component {
     axios("/getList", {
       method: "get",
     }).then((response) => {
-      console.log(response.data);
-      this.state.listMap = response.data.reduce(function(map, obj) {
+      var listMap = response.data.reduce(function (map, obj) {
         map[obj.listName] = obj;
         return map;
-    }, {});
+      });
       this.setState({
         isLoaded: true,
         lists: response.data,
-        selectedListName: response.data[0].listName
+        selectedListName: response.data[0].listName,
+        listMap: listMap
       });
     });
   }
 
   handleAddToList() {
-    console.log(this.state.selectedListName);
     const data = {
       list_id: this.state.listMap[this.state.selectedListName]._id,
       itemName: 'test',
@@ -48,9 +48,7 @@ class ItemListSelector extends React.Component {
       data: data,
     })
       .then((response) => {
-        console.log(response);
         if (response.status === 200) {
-          console.log(1111111);
           this.showModal();
           swal({
             title: "Success",
@@ -63,7 +61,6 @@ class ItemListSelector extends React.Component {
             })
             .catch((error) => console.log(error.response.data));
         } else if (response.status === 201) {
-          console.log(22222);
           swal({
             title: "Sorry",
             text: "List already exists",
@@ -77,16 +74,20 @@ class ItemListSelector extends React.Component {
         }
       })
       .catch((error) => {
-        console.log(333333);
         console.log("add project not 2xx response");
       });
+      this.props.closeItemListSelector();
   }
 
   render() {
+    if(this.props.selectedItem._id !== this.props.item._id) {
+      return null;
+    }
     return (
       <div className='popup'>
         <div className='popup_inner'>
           <h1>{'Select from the below list'}</h1>
+          <br></br>
           <select id="list_dropdown" onChange={(event) => {
             this.setState({
               selectedListName: event.target.value,
@@ -99,7 +100,7 @@ class ItemListSelector extends React.Component {
           <button id="add_me" onClick={this.handleAddToList.bind(this)}>Add to List</button>
           <button id="close_me" onClick={this.props.closeItemListSelector} >Close</button>
         </div>
-      </div>
+        </div>
     );
   }
 }
