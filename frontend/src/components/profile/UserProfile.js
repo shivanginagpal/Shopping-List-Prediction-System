@@ -75,8 +75,8 @@ class UserProfile extends Component {
                     <p className="description">{this.state.userDetails.email}</p>
                   </div>
                   <p className="description text-center">
-                    "I am the best <br />
-                    I am Hulk <br />I am great"
+                    Profile Description <br />
+                    <br />
                   </p>
                 </CardBody>
                 <CardFooter>
