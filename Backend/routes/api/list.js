@@ -70,7 +70,8 @@ router.put("/addItemToList", passportAuth, (req, res) => {
 
 //getting items from the list
 router.put("/getitemsfromList", passportAuth, (req, res) => {
-  List.findOne({ _id: ObjectId(req.body.list_id) },{"item" : 1, "_id" : 0})
+  console.log("In ")
+  List.findOne({ _id: ObjectId(req.body.list_id) }, { "item": 1, "_id": 0 })
     .then((result) => {
       console.log("messages retreived", result);
       //res.end(JSON.stringify(result));

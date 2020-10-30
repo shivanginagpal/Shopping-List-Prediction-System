@@ -20,7 +20,7 @@ class viewItems extends Component {
       Quantity: "",
       Price: "",
       BrandName: "",
-      product_id:"",
+      product_id: "",
       editmodal: false,
       edititemName: null,
       editQuantity: null,
@@ -45,7 +45,7 @@ class viewItems extends Component {
         editQuantity: null,
         editPrice: null,
         editBrandName: null,
-        product_id:product.product_id,
+        product_id: product.product_id,
         editmodal: !this.state.editmodal,
       });
     } else {
@@ -100,7 +100,7 @@ class viewItems extends Component {
       quantity: this.state.editQuantity,
       price: this.state.editPrice,
       brandName: this.state.editBrandName,
-      product_id:this.state.product_id,
+      product_id: this.state.product_id,
       item_id: itemid,
     };
     axios("/updateItemToList", {
@@ -175,7 +175,7 @@ class viewItems extends Component {
           .catch((error) => console.log(error.response.data));
       }
     });
-  } 
+  }
 
   render() {
     const closeeditmodalBtn = (
@@ -200,7 +200,7 @@ class viewItems extends Component {
             <div id="itemAdminRight">
               <div className="col">
                 <div className="card" id="cardadminclass">
-                  
+
                   <img
                     src={productimg}
                     className="card-img-top"
@@ -224,7 +224,7 @@ class viewItems extends Component {
                       </span>
                     </h6>
                     <p className="card-text lead" id="cardadmin-text">
-                     Quantity : {product.quantity}
+                      Quantity : {product.quantity}
                     </p>
                     <p className="card-text lead" id="cardadmin-text">
                       Brand : {product.brandName}
@@ -330,7 +330,7 @@ class viewItems extends Component {
         </Modal>
       );
     }
-    
+
     return (
       <div>
         <CustomerNavbar />
@@ -356,10 +356,10 @@ class viewItems extends Component {
                       </div>
                     </div>
                   ) : (
-                    <div>
-                      <h4 style={{ margin: "3em" }}>No items to display!</h4>
-                    </div>
-                  )}
+                      <div>
+                        <h4 style={{ margin: "3em" }}>No items to display!</h4>
+                      </div>
+                    )}
                 </div>
               </div>
             </div>
