@@ -41,7 +41,7 @@ router.get("/items", (req, res) => {
                 if (err) {
                     res.send('error has occured');
                 } else {
-                    console.log(items);
+                   // console.log(items);
                     res.json(items);
                 }
             });
@@ -50,7 +50,7 @@ router.get("/items", (req, res) => {
 });
 //get an item with item id
 router.get('/items/:id', function (req, res) {
-    console.log('getting one item');
+    //console.log('getting one item');
     Item.findOne({
         _id: req.params.id
     })

@@ -234,3 +234,11 @@ border-radius: 10px;
   font-size: 0.75rem; }
   .white-content .card:not(.card-white) .card-body .card-category, .white-content .card:not(.card-white) .card-body .card-description {
       color: #1d253b; }
+
+.carousel-inner{
+  height:300px;
+}
+
+.carcontent{
+  padding-bottom: 10px;
+}

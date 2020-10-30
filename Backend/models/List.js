@@ -36,8 +36,12 @@ const ListSchema = new Schema({
       product_id: {
         type: Number,
       },
+      category: {
+        type:String,
+      },
       price: {
         type: Number,
+        default: 0
       },
       quantity: {
         type: Number,

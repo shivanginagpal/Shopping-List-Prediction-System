@@ -1,76 +1,125 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import axios from "axios";
 import CustomerNavbar from "../customer/CustomerNavbar";
-import { getCurrentUser } from "../../actions/userActions";
+import SideBar from "../layout/SideBar";
+import productimg from "../../images/grocery.jpg";
+import shivangi from "../../images/shivangi-Nagpal.jpg"
+import {
+  Button,
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  CardTitle,
+  FormGroup,
+  Form,
+  Input,
+  Row,
+  Col,
+} from "reactstrap";
+import './userProfile.css';
+
 
 class UserProfile extends Component {
-  componentDidMount() {
-    this.props.getCurrentUser();
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      userDetails:""
+    };
+  }
+  componentDidMount = () => {
+
+    axios("/getUser",{
+      method: "get",
+    }).then((res) => {
+      this.setState({
+        userDetails: res.data
+      })
+      console.log("these are items ", this.state.userDetails);
+    })
   }
 
   render() {
-    const { user = [], loading } = this.props.user;
-    console.log(user);
+    return (
+      <div>
+        <CustomerNavbar />
+        <div className="row">
 
-    if (user === null || loading) {
-      return (
-        <div>
-          <CustomerNavbar />
-          <div className="container">
-            <br />
-
-            <h2>"Loading"</h2>
+          <div className="col-2">
+            <SideBar />
           </div>
-        </div>
-      );
-    } else {
-      /*
-      profileImg = isFieldEmpty(profile.customerProfilePicture)
-        ? "https://static.change.org/profile-img/default-user-profile.svg"
-        : profile.customerProfilePicture;
-      */
-      let profileImg =
-        "https://static.change.org/profile-img/default-user-profile.svg";
-      return (
-        <div>
-          <CustomerNavbar />
-          <br />
-          <div className="col-md-12">
-            <div className="card card-body bg-white text-black mb-3">
-              <div className="row">
-                <div className="col-4 col-md-3 m-auto">
+          <div className="col-3"></div>
+          <div className="col-7">
+            
+
+            <Row>
+              <div className="content">
+              <Col md="6">
+              <Card className="card-user">
+                <div className="image">
                   <img
-                    className="card-img-top rounded-circle"
-                    src={profileImg}
-                    alt=""
+                    alt="..."
+                    src={productimg}
                   />
                 </div>
-              </div>
-              <div className="text-right">
-                <h1
-                  className=""
-                  type="text"
-                  placeholder="My email"
-                  autocomplete="off"
-                  autocorrect="off"
-                  autocapitalize="off"
-                  spellcheck="false"
-                  value={user.email}
-                ></h1>
-                <h1 className="text-right profile-text">{user.name}</h1>
-                <h1 className="text-right profile-text">{user.email}</h1>
-              </div>
+                <CardBody>
+                  <div className="author">
+                    
+                      <img
+                        alt="..."
+                        className="avatar border-gray"
+                        src={shivangi}
+                      />
+                      <h5 className="title">{this.state.userDetails.name}</h5>
+                    <p className="description">{this.state.userDetails.email}</p>
+                  </div>
+                  <p className="description text-center">
+                    "I am the best <br />
+                    I am Hulk <br />I am great"
+                  </p>
+                </CardBody>
+                <CardFooter>
+                  <hr />
+                  <div className="button-container">
+                    <Row>
+                      <Col className="ml-auto" lg="3" md="6" xs="6">
+                        <h5>
+                          12 <br />
+                          <small>Lists</small>
+                        </h5>
+                      </Col>
+                      <Col className="ml-auto mr-auto" lg="4" md="6" xs="6">
+                        <h5>
+                          20 <br />
+                          <small>Items</small>
+                        </h5>
+                      </Col>
+                      <Col className="mr-auto" lg="3">
+                        <h5>
+                          24,6$ <br />
+                          <small>Spent</small>
+                        </h5>
+                      </Col>
+                    </Row>
+                  </div>
+                </CardFooter>
+              </Card>
+        
+            </Col>
             </div>
+            </Row>
+            
           </div>
         </div>
-      );
-    }
+
+      </div>
+    )
+
+    
   }
 }
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-  user: state.user,
-});
 
-export default connect(mapStateToProps, { getCurrentUser })(UserProfile);
+
+export default UserProfile;

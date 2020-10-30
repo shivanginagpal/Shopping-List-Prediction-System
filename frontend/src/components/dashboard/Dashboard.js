@@ -23,6 +23,7 @@ import {
   chartExample4,
   dashboardEmailStatisticsChart,
 } from "./charts.js";
+import Top4Cards from "./Top4Cards";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -48,113 +49,7 @@ class Dashboard extends React.Component {
           </div>
           <div className="col-10">
             <div className="content">
-              <Row>
-                <Col lg="3" md="6" sm="6">
-                  <Card className="card-stats">
-                    <CardBody>
-                      <Row>
-                        <Col md="4" xs="5">
-                          <div className="icon-big text-center icon-warning">
-                            <i className="fa fa-walking" />
-                          </div>
-                        </Col>
-                        <Col md="8" xs="7">
-                          <div className="numbers">
-                            <p className="card-category">Total visits</p>
-                            <CardTitle tag="p">15</CardTitle>
-                            <p />
-                          </div>
-                        </Col>
-                      </Row>
-                    </CardBody>
-                    <CardFooter>
-                      <hr />
-                      <div className="stats">
-                        <i className="fas fa-calendar" /> Update Now
-                      </div>
-                    </CardFooter>
-                  </Card>
-                </Col>
-                <Col lg="3" md="6" sm="6">
-                  <Card className="card-stats">
-                    <CardBody>
-                      <Row>
-                        <Col md="4" xs="5">
-                          <div className="icon-big text-center icon-warning">
-                            <i class="fas fa-hand-holding-usd"></i>
-                          </div>
-                        </Col>
-                        <Col md="8" xs="7">
-                          <div className="numbers">
-                            <p className="card-category">Expenditure</p>
-                            <CardTitle tag="p">$ 1,345</CardTitle>
-                            <p />
-                          </div>
-                        </Col>
-                      </Row>
-                    </CardBody>
-                    <CardFooter>
-                      <hr />
-                      <div className="stats">
-                        <i className="fas fa-dollar-sign" /> Total Money Spent
-                      </div>
-                    </CardFooter>
-                  </Card>
-                </Col>
-                <Col lg="3" md="6" sm="6">
-                  <Card className="card-stats">
-                    <CardBody>
-                      <Row>
-                        <Col md="4" xs="5">
-                          <div className="icon-big text-center icon-warning">
-                            <i className="fas fa-shopping-cart" />
-                          </div>
-                        </Col>
-                        <Col md="8" xs="7">
-                          <div className="numbers">
-                            <p className="card-category">Items</p>
-                            <CardTitle tag="p">23</CardTitle>
-                            <p />
-                          </div>
-                        </Col>
-                      </Row>
-                    </CardBody>
-                    <CardFooter>
-                      <hr />
-                      <div className="stats">
-                        <i class="fas fa-shopping-cart"></i>  Total Items Bought
-                      </div>
-                    </CardFooter>
-                  </Card>
-                </Col>
-                <Col lg="3" md="6" sm="6">
-                  <Card className="card-stats">
-                    <CardBody>
-                      <Row>
-                        <Col md="4" xs="5">
-                          <div className="icon-big text-center icon-warning">
-                            <i className="fas fa-receipt" />
-                          </div>
-                        </Col>
-                        <Col md="8" xs="7">
-                          <div className="numbers">
-                            <p className="card-category">Buy Items</p>
-                            <CardTitle tag="p">+45</CardTitle>
-                            <p />
-                          </div>
-                        </Col>
-                      </Row>
-                    </CardBody>
-                    <CardFooter>
-                      <hr />
-                      <div className="stats">
-                        <i class="fas fa-receipt"></i> Number of Items to Buy
-                      </div>
-                    </CardFooter>
-                  </Card>
-                </Col>
-              </Row>
-
+                <Top4Cards/>
               <Row>
                 <Col xs="12">
                   <Card className="card-chart">
