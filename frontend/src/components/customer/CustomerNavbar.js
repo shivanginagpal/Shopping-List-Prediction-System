@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authAction";
 import { clearUser } from "../../actions/userActions";
 
+
 class CustomerNavbar extends Component {
   handleLogout(e) {
     e.preventDefault();

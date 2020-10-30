@@ -52,7 +52,7 @@ router.get("/getList", passportAuth, (req, res) => {
 });
 
 router.put("/addItemToList", passportAuth, (req, res) => {
-  //console.log("body ", req.body);
+  console.log("addItemToList body ", req.body);
   List.findOne({ _id: req.body.list_id }).then((list) => {
     const newItem = {};
     if (req.body.itemName) newItem.itemName = req.body.itemName;
@@ -61,6 +61,7 @@ router.put("/addItemToList", passportAuth, (req, res) => {
     if (req.body.brandName) newItem.brandName = req.body.brandName;
     if (req.body.price) newItem.price = req.body.price;
     if (req.body.product_id) newItem.product_id = req.body.product_id;
+    if (req.body.category) newItem.category = req.body.category;
 
     // Add to item array
     list.item.unshift(newItem);
@@ -104,7 +105,7 @@ router.delete("/deleteItemFromList", passportAuth, (req, res) => {
 });
 
 router.post("/updateItemToList", passportAuth, async (req, res) => {
-  //console.log("body ", req.body);
+  console.log("updateItemToList body ", req.body);
   let item = {};
   if (req.body.itemName) item.itemName = req.body.itemName;
   if (req.body.quantity) item.quantity = req.body.quantity;
@@ -112,6 +113,7 @@ router.post("/updateItemToList", passportAuth, async (req, res) => {
   if (req.body.brandName) item.brandName = req.body.brandName;
   if (req.body.price) item.price = req.body.price;
   if (req.body.product_id) item.product_id = req.body.product_id;
+  if (req.body.category) item.category = req.body.category;
 
   await List.findOneAndUpdate(
     { _id: req.body.list_id, "item._id": req.body.item_id },

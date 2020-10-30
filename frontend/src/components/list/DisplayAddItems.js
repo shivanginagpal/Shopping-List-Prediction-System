@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import axios from "axios";
 import swal from "sweetalert";
 import "./additem.css";
-import NotificationAlert from "react-notification-alert";
-import "react-notification-alert/dist/animate.css";
 
 class DisplayAddItems extends Component {
   constructor(props) {
@@ -26,21 +24,23 @@ class DisplayAddItems extends Component {
       console.log("these are items ", this.state.items);
     });
   };
-  onTextChange = (e) => {
+
+  onTextChange =  (e) => {
     const value = e.target.value;
+    console.log("This ontextchange value", value);
     let suggestions = [];
+    let items = this.state.items;
     if (value.length > 0) {
       const regex = new RegExp(`^${value}`, "gi");
-      suggestions = this.state.items.sort().filter((item) => {
+      suggestions = items.sort().filter((item) => {
+        console.log("ITEMS ON TEXT CHANGE", item.name);
         return item.name.match(regex);
       });
       console.log("THESE ARE MATCHES", suggestions);
     }
     this.setState(() => ({ suggestions, text: value }));
   }; 
-    
 
-     i
 
   renderSuggestions() {
     const { suggestions } = this.state;
@@ -59,7 +59,7 @@ class DisplayAddItems extends Component {
   suggestionSelected(value) {
       console.log("THIS IS VALUE", value);
     this.setState(() => ({
-        itemObj:value,
+      itemObj:value,
       text: value.name,
       suggestions: [],
     }));
@@ -71,6 +71,7 @@ class DisplayAddItems extends Component {
           list_id : listid,
           itemName: this.state.itemObj.name,
           product_id: this.state.itemObj.product_id,
+          category: this.state.itemObj.category
       };
       axios("/addItemToList", {
         method: "PUT",
@@ -89,6 +90,7 @@ class DisplayAddItems extends Component {
                 window.location.reload();
               })
               .catch((error) => console.log(error.response.data));
+
             var options = {};
             options = {
               place: "tr",
@@ -126,7 +128,6 @@ console.log("THIS IS THE SELECTED ITEM", this.state.itemObj);
     return (
       <div>
         <div className="row">
-          <NotificationAlert ref="notify" />
           <div className="col-6">
             <div className="additem">
               <input

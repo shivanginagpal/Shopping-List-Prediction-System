@@ -16,16 +16,19 @@ class viewItems extends Component {
     super();
     this.state = {
       items: [],
-      itemName: "",
-      Quantity: "",
-      Price: "",
-      BrandName: "",
-      product_id: "",
+      // itemName: "",
+      // Quantity: "",
+      // Price: "",
+      // BrandName: "",
+      // store: "",
+      // product_id:"",
+      // category:"",
       editmodal: false,
       edititemName: null,
       editQuantity: null,
       editPrice: null,
       editBrandName: null,
+      editStoreName: null,
       text: "Buy",
       tog: false,
     };
@@ -46,6 +49,7 @@ class viewItems extends Component {
         editPrice: null,
         editBrandName: null,
         product_id: product.product_id,
+        editStoreName: null,
         editmodal: !this.state.editmodal,
       });
     } else {
@@ -53,21 +57,17 @@ class viewItems extends Component {
         editproduct: product,
         editmodal: !this.state.editmodal,
         product_id: product.product_id,
+        category: product.category,
         edititemName: product.itemName,
         editQuantity: product.quantity,
         editPrice: product.price,
         editBrandName: product.brandName,
+        editStoreName: product.store
       });
     }
   };
 
   handleChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  handleEditChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -100,6 +100,7 @@ class viewItems extends Component {
       quantity: this.state.editQuantity,
       price: this.state.editPrice,
       brandName: this.state.editBrandName,
+      store: this.state.editStoreName,
       product_id: this.state.product_id,
       item_id: itemid,
     };
@@ -229,6 +230,9 @@ class viewItems extends Component {
                     <p className="card-text lead" id="cardadmin-text">
                       Brand : {product.brandName}
                     </p>
+                    <p className="card-text lead" id="cardadmin-text">
+                      Store : {product.store}
+                    </p>
 
                     <span>
                       <p className="card-text lead" id="cardadmin-text">
@@ -310,6 +314,14 @@ class viewItems extends Component {
                   className="form-control"
                   type="text"
                   defaultValue={this.state.editproduct.brandName}
+                ></input>
+                <label className="font-weight-bold">Store:</label>
+                <input
+                  onChange={this.handleChange}
+                  name="editStoreName"
+                  className="form-control"
+                  type="text"
+                  defaultValue={this.state.editproduct.store}
                 ></input>
                 <br />
               </div>

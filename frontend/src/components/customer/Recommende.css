@@ -1,0 +1,10 @@
+#recom{
+display: flex;
+overflow-x: scroll;
+width: 100%;
+padding-top: 15px;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}

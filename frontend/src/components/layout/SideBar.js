@@ -6,7 +6,7 @@ class SideBar extends Component {
   render() {
     return (
       <div class="sidebar-container">
-        <div class="sidebar-logo">Project Name</div>
+        {/* <div class="sidebar-logo">Project Name</div> */}
         <ul class="sidebar-navigation">
           <li class="header">Navigation</li>
           <li>
@@ -24,11 +24,11 @@ class SideBar extends Component {
               <i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard
             </a>
           </li>
-          <li>
+          {/* <li>
             <a href="/Map">
               <i class="fas fa-map-marker-alt" aria-hidden="true"></i>  Maps
             </a>
-          </li>
+          </li> */}
           <li>
             <a href="#">
               <i class="fa fa-users" aria-hidden="true"></i> Friends

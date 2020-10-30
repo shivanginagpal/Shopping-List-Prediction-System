@@ -235,6 +235,13 @@ border-radius: 10px;
   .white-content .card:not(.card-white) .card-body .card-category, .white-content .card:not(.card-white) .card-body .card-description {
       color: #1d253b; }
 
+.carousel-inner{
+  height:300px;
+}
+
+.carcontent{
+  padding-bottom: 10px;
+}
 
 
       

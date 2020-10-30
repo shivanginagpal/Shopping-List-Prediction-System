@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import CustomerNavbar from "./CustomerNavbar";
 import SideBar from "../layout/SideBar";
+import Carousel from "./Carousel";
+import Recommended from "./Recommended";
+import RecentlyBought from "./RecentlyBought";
 
 
  class CustomerHome extends Component {
@@ -11,12 +14,36 @@ import SideBar from "../layout/SideBar";
         <div>
           <CustomerNavbar />
         </div>
+        <div className="row">
+          <div className="col-2">
+              <SideBar />
+          </div>
+          <div className="col-10">
+            <div className="row" >
+           
+            <Carousel/>
+            
+           
+           </div>
+           <div className="row">
+             
+           <Recommended/>
+           </div>
 
+           <div className="row">
+             <RecentlyBought/>
+           </div>
+              
+            
+            
+          </div>
+          
+        </div>
         <div>
-          <SideBar />
+          
         </div>
 
-        {/* <div>welcome to my website</div> */}
+        
       </div>
     );
   }

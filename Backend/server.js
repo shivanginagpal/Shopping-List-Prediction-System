@@ -8,6 +8,7 @@ var signUpSignIn = require("./routes/api/signUpSignIn");
 var list = require("./routes/api/list");
 var item = require("./routes/api/item");
 var category = require("./routes/api/category");
+var dashboard = require("./routes/api/dashboard");
 
 const app = express();
 app.set("view engine", "ejs");
@@ -49,7 +50,7 @@ mongoose
   .connect(db, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    poolSize: 100,
+    poolSize: 500,
     useCreateIndex: true,
     useFindAndModify: false,
   })
@@ -62,6 +63,7 @@ app.use("/", signUpSignIn);
 app.use("/", list);
 app.use("/", item);
 app.use("/", category);
+app.use("/", dashboard);
 
 app.get("/", (req, res) => res.send("Hello World!!"));
 
