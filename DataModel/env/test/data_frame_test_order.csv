@@ -1,4 +1,5 @@
 order_id,user_id,eval_set,order_number,order_dow,order_hour_of_day,days_since_prior_order
 1112224,11111,prior,1,0,1,0
 1112225,11111,prior,2,1,20,1
-11112222,11111,test,3,2,22,1
+1112226,11111,prior,3,4,21,10
+11112222,11111,test,4,4,14,-1
