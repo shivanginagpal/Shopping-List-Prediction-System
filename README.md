@@ -23,5 +23,5 @@ recommendations for the creating Shopping Lists.
 ## For DataModel
 
 1. Go to the DataModel/server folder
-2. Activate the virtual environment using source server/bin/activate
-3. Run python3 server/app.py
+2. Activate the virtual environment using "source server/bin/activate"
+3. Run "python3 server/app.py"

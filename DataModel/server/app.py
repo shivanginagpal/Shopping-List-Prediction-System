@@ -188,7 +188,7 @@ def get_prediction(user_id):
 
     # print(f'******* here****, {out.split(" ")}',)
     res = list(map(int, out[0].split(" ")))
-    #print(f"my prods are:", res)
+    print(f"my prods are:", res)
 
     return(({'result': res})), 201
 
