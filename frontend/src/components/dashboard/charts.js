@@ -201,7 +201,21 @@ let chartExample2 = {
     gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
     return {
-      labels: ["JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+      // labels: ["JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+      labels: [
+        "JAN",
+        "FEB",
+        "MAR",
+        "APR",
+        "MAY",
+        "JUN",
+        "JUL",
+        "AUG",
+        "SEP",
+        "OCT",
+        "NOV",
+        "DEC"
+      ],
       datasets: [
         {
           label: "Data",
@@ -218,7 +232,8 @@ let chartExample2 = {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: [80, 100, 70, 80, 120, 80]
+          // data: [80, 100, 70, 80, 120, 80]
+          data: [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130]
         }
       ]
     };
@@ -459,5 +474,5 @@ module.exports = {
   chartExample2,
   chartExample3, 
   chartExample4, 
-  dashboardEmailStatisticsChart
+  dashboardEmailStatisticsChart,
 };

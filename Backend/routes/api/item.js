@@ -20,7 +20,7 @@ const Item = require("../../models/Item");
 
 //get all items
 router.get("/items", (req, res) => {
-    console.log("getting all items");
+    //console.log("getting all items");
     if (req.query.category) {
         Item.find({
             category: req.query.category,
@@ -37,7 +37,7 @@ router.get("/items", (req, res) => {
             if (err) {
                 res.send("error has occured");
             } else {
-                console.log(items);
+                //console.log(items);
                 res.json(items);
             }
         });
@@ -45,22 +45,22 @@ router.get("/items", (req, res) => {
 });
 //get an item with item id
 router.get("/items/:id", function (req, res) {
-    console.log("getting one item");
+    //console.log("getting one item");
     Item.findOne({
         _id: req.params.id,
     }).exec(function (err, items) {
         if (err) {
             res.send("error occurred");
         } else {
-            console.log(items);
+            //console.log(items);
             res.json(items);
         }
     });
 });
 //create an item
 router.post("/items", helper.upload.single("file"), async function (req, res) {
-    console.log(req.body);
-    console.log(req.file.filename);
+   // console.log(req.body);
+    //console.log(req.file.filename);
     let imageUrl = "";
     if (req.file) {
         try {
@@ -70,7 +70,7 @@ router.post("/items", helper.upload.single("file"), async function (req, res) {
             console.log(error);
         }
     }
-    console.log(imageUrl);
+    //console.log(imageUrl);
     var newItem = new Item();
     newItem.name = req.body.name;
     newItem.category = req.body.category;
@@ -82,7 +82,7 @@ router.post("/items", helper.upload.single("file"), async function (req, res) {
         if (err) {
             res.send("error saving items");
         } else {
-            console.log(item);
+            //console.log(item);
             res.send(item);
         }
     });
@@ -107,7 +107,7 @@ router.put("/items/:id", function (req, res) {
             if (err) {
                 res.send("error occured");
             } else {
-                console.log(newItem);
+                //console.log(newItem);
                 res.status(204).send();
             }
         }

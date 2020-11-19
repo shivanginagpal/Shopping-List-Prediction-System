@@ -3,9 +3,7 @@ import CustomerNavbar from "../customer/CustomerNavbar";
 import SideBar from "../layout/SideBar";
 import axios from "axios";
 import swal from 'sweetalert';
-import { Link } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import {getID} from "../auth/HelperApis";
 import {hostaddress} from "../auth/settings";
 
 class addList extends Component {
@@ -141,7 +139,7 @@ class addList extends Component {
               </div>
             </div>
             <p class="card-text" id="eventtext">
-              No.of items in the list: {}
+              No.of items in the list: {viewlist.item.length}
             </p>
             <div className="row">
               <div className="col-10"></div>

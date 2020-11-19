@@ -66,7 +66,6 @@ class ItemsList extends React.Component {
     }, () => {
       this.componentDidMount();
     });
-
   }
 
   render() {

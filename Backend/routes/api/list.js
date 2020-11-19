@@ -71,7 +71,7 @@ router.put("/addItemToList", passportAuth, (req, res) => {
 
 //getting items from the list
 router.put("/getitemsfromList", passportAuth, (req, res) => {
-  console.log("In ")
+  //console.log("In ")
   List.findOne({ _id: ObjectId(req.body.list_id) }, { "item": 1, "_id": 0 })
     .then((result) => {
       console.log("messages retreived", result);
@@ -105,7 +105,7 @@ router.delete("/deleteItemFromList", passportAuth, (req, res) => {
 });
 
 router.post("/updateItemToList", passportAuth, async (req, res) => {
-  console.log("updateItemToList body ", req.body);
+ // console.log("updateItemToList body ", req.body);
   let item = {};
   if (req.body.itemName) item.itemName = req.body.itemName;
   if (req.body.quantity) item.quantity = req.body.quantity;
