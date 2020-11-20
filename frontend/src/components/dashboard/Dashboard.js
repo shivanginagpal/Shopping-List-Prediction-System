@@ -15,10 +15,6 @@ import {
 import CustomerNavbar from "../customer/CustomerNavbar";
 import SideBar from "../layout/SideBar";
 import {
-  chartExample1,
-  chartExample2,
-  chartExample3,
-  chartExample4,
   dashboardEmailStatisticsChart,
 } from "./charts.js";
 import Top4Cards from "./Top4Cards";
@@ -27,6 +23,7 @@ import DayofweekExp from "./DayofWeekExp";
 import MonthlyExpenditure from "./MonthlyExpenditure";
 import ItemsBoughtPerMonth from "./ItemsBoughtPerMonth";
 import WeekDayExpenditure from "./WeekDayExpenditure";
+import StoreExpPie from "./StoreExpPie";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -96,6 +93,9 @@ class Dashboard extends React.Component {
                 </Col>
                 <Col md="4">
                   <ItemsBoughtPerMonth/>
+                </Col>
+                <Col md="4">
+                  <StoreExpPie />
                 </Col>
               </Row>
             </div>

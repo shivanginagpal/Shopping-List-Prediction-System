@@ -107,7 +107,7 @@ class addList extends Component {
       <button className="close" onClick={() => this.showModal()}>
         &times;
       </button>
-    );
+    );  
 
     let listheaders = this.state.lists.map((viewlist) => {
       let url = "http://" + hostaddress + ":3000/viewItems/" + viewlist._id;

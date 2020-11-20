@@ -386,4 +386,98 @@ router.get("/itemsBoughtdayofweek", passportAuth, (req, res) => {
         })
 })
 
+router.get("/categoryCount", passportAuth, (req, res) => {
+    List.aggregate([
+        {
+            $match: {
+                user: ObjectId(req.user._id)
+            }
+        },{
+            $unwind: "$item"
+        },{
+            $match: {
+            "item.bought":true,
+             }
+         },
+         {
+            $group:{
+                _id:"$item.category",
+                count: {
+                    $sum: 1
+                }
+            }
+        }
+    ]).then(result => {
+            console.log("messages retreived", result);
+            res.end(JSON.stringify(result));
+        }).catch(err => {
+            console.log(err);
+            res.end("could not get messages");
+        })
+})
+
+
+router.get("/categoryExpenditure", passportAuth, (req, res) => {
+    List.aggregate([
+        {
+            $match: {
+                user: ObjectId(req.user._id)
+            }
+        },{
+            $unwind: "$item"
+        },{
+            $match: {
+            "item.bought":true,
+             }
+         },
+         {
+            $group:{
+                _id:"$item.category",
+                total: {
+                        $sum: {$multiply:["$item.price","$item.quantity"]}
+                     }
+            }
+        }
+    ]).then(result => {
+            console.log("messages retreived", result);
+            res.end(JSON.stringify(result));
+        }).catch(err => {
+            console.log(err);
+            res.end("could not get messages");
+        })
+})
+
+router.get("/storeExpenditure", passportAuth, (req, res) => {
+    List.aggregate([
+        {
+            $match: {
+                user: ObjectId(req.user._id)
+            }
+        },{
+            $unwind: "$item",
+        },{
+            $match: {
+            "item.bought":true,
+             }
+         },
+         {
+            $group:{
+                _id: "$item.store",
+            total: {
+                    $sum: {$multiply:["$item.price","$item.quantity"]}
+                    }
+            }
+        },{
+            $sort:{
+                _id:1
+            }
+        }
+    ]).then(result => {
+            console.log("messages retreived", result);
+            res.end(JSON.stringify(result));
+        }).catch(err => {
+            console.log(err);
+            res.end("could not get messages");
+        })
+})
 module.exports = router;

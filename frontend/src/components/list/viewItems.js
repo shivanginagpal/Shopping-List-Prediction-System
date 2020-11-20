@@ -21,8 +21,8 @@ class viewItems extends Component {
       // Price: "",
       // BrandName: "",
       // store: "",
-      // product_id:"",
-      // category:"",
+      product_id:"",
+      category:"",
       editmodal: false,
       edititemName: null,
       editQuantity: null,
@@ -49,6 +49,7 @@ class viewItems extends Component {
         editPrice: null,
         editBrandName: null,
         product_id: product.product_id,
+        category: product.category,
         editStoreName: null,
         editmodal: !this.state.editmodal,
       });
@@ -102,6 +103,8 @@ class viewItems extends Component {
       brandName: this.state.editBrandName,
       store: this.state.editStoreName,
       product_id: this.state.product_id,
+      category: this.state.category,
+
       item_id: itemid,
     };
     axios("/updateItemToList", {
