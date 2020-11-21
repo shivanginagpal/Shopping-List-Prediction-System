@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Bar, Pie, Doughnut } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import axios from "axios";
 import {
   Card,
@@ -9,28 +9,28 @@ import {
   CardFooter
 } from "reactstrap";
 
-class StoreExpPie extends Component {
+class StoreItemCount extends Component {
     constructor(props) {
         super(props);
         this.state = {
             store:[],
-            amount:[]
+            count:[]
         }
     }
 
     componentDidMount = () => {
-        axios('/storeExpenditure',{
+        axios('/storeItemsCount',{
             method: "get",
         }).then((response) => {
                  let monthsArr = [];
                  let valArr = [];
                  response.data.forEach((item) => {
                      monthsArr.push(item._id);
-                     valArr.push(item.total)
+                     valArr.push(item.count)
                  });
                  this.setState({
                      store: monthsArr,
-                     amount: valArr
+                     count: valArr
                  });
              })
     }
@@ -39,8 +39,8 @@ class StoreExpPie extends Component {
             labels: ["Costco", "Walmart", "Wholefoods"],
             datasets: [
               {
-                label: 'Total Money Spent($)',
-                data: this.state.amount,
+                label: 'Number of Items Bought',
+                data: this.state.count,
                 backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f"]
               }
             ]
@@ -48,7 +48,7 @@ class StoreExpPie extends Component {
         const options = {
             title: {
               display: true,
-              text: 'Total Money Spent($)'
+              text: 'Number of Items Bought'
             }
             
           };
@@ -56,24 +56,24 @@ class StoreExpPie extends Component {
             <div>
                 <Card className="card-chart">
                     <CardHeader>
-                        <h5 className="card-category">Store</h5>
+                        <h5 className="card-category">Items</h5>
                       <CardTitle tag="h3">
-                          <i className="tim-icons icon-bell-55 text-info" /> Expenditure</CardTitle>
+                          <i className="tim-icons icon-bell-55 text-info" /> Bought</CardTitle>
                       {/* <p className="card-category">Money spent</p> */}
                     </CardHeader>
                     <CardBody>
-                      <Pie ref="chart" data={data} options={options}/>
+                      <Doughnut ref="chart" data={data} options={options} />
                     </CardBody>
                     <CardFooter>
                       <div className="stats">
-                        <i className="fas fa-bars" /> Category wise
-                        Expenditure
+                        <i className="fas fa-bars" /> No.Of Items Bought in store
                       </div>
                     </CardFooter>
                   </Card>
+                
             </div>
         )
     }
 }
 
-export default StoreExpPie;
+export default StoreItemCount;

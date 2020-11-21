@@ -80,7 +80,7 @@ class ItemsList extends React.Component {
       return (
         <div>
           <CustomerNavbar />
-
+          <div className="container">
           <h3>Shop Popular Items</h3>
 
           < br />
@@ -136,7 +136,7 @@ class ItemsList extends React.Component {
           </div>
 
 
-
+                </div>
         </div >
       );
     }

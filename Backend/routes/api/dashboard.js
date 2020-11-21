@@ -480,4 +480,38 @@ router.get("/storeExpenditure", passportAuth, (req, res) => {
             res.end("could not get messages");
         })
 })
+
+router.get("/storeItemsCount", passportAuth, (req, res) => {
+    List.aggregate([
+        {
+            $match: {
+                user: ObjectId(req.user._id)
+            }
+        },{
+            $unwind: "$item",
+        },{
+            $match: {
+            "item.bought":true,
+             }
+         },
+         {
+            $group:{
+                _id: "$item.store",
+            count: {
+                    $sum: 1
+                }
+            }
+        },{
+            $sort:{
+                _id:1
+            }
+        }
+    ]).then(result => {
+            console.log("messages retreived", result);
+            res.end(JSON.stringify(result));
+        }).catch(err => {
+            console.log(err);
+            res.end("could not get messages");
+        })
+})
 module.exports = router;

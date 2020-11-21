@@ -106,7 +106,7 @@ import axios from 'axios';
                     <CardFooter>
                       <hr />
                       <div className="stats">
-                        <i className="fas fa-calendar" /> Update Now
+                        <i className="fas fa-bars" /> Lists Created
                       </div>
                     </CardFooter>
                   </Card>

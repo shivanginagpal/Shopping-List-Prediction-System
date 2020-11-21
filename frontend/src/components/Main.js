@@ -12,7 +12,6 @@ import viewItems from "./list/viewItems";
 import UserProfile from "./profile/UserProfile";
 import Dashboard from "./dashboard/Dashboard";
 import ItemsList from "./items/ItemsList";
-import Map from "./dashboard/Map";
 import Recommendation from "./recommendations/Recommendation";
 
 export default class Main extends Component {
@@ -30,7 +29,6 @@ export default class Main extends Component {
         <Route exact path="/ItemsList" component={ItemsList} />
         <Route exact path="/userProfile" component={UserProfile} />
         <Route exact path="/dashboard" component={Dashboard} />
-        <Route exact path="/Map" component={Map} />
         <Route exact path="/recommendations" component={Recommendation} />
       </div>
     );
