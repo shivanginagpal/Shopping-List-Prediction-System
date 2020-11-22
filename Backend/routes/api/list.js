@@ -8,6 +8,21 @@ const ObjectId = mongoose.Types.ObjectId;
 // Load User Model
 const User = require("../../models/User");
 const List = require("../../models/List");
+const Item = require("../../models/Item");
+
+
+router.get("/getUserRecommendations", (req, res) => {
+  //[1234, 4567, 78954]
+  let itemlist = [];
+  let products = [120, 4261, 37761];
+ let itemdata =  async() => { return Promise.all(products.map(async product =>{ 
+  await Item.findOne({product_id: product})
+  .then((item) => {itemlist.push(item)})
+  .catch((err) => res.status(404).json({ user: "There is no such item" }));
+ }))
+}
+itemdata().then((x) => res.send({status: 200, data : itemlist})).catch((err)=> res.status(404).json({ user: "There is no such item" }))
+})
 
 //get the user
 router.get("/getUser", passportAuth, (req, res) => {
@@ -24,17 +39,37 @@ router.delete("/deleteList", passportAuth, (req, res) => {
 });
 
 //Create New Shopping List
+// router.post("/createNewList", passportAuth, (req, res) => {
+//   //console.log("body ", req.body);
+//   const listFields = {};
+//   listFields.user = req.user._id;
+//   listFields.listName = req.body.listName;
+
+//   const list = new List(listFields);
+//   list
+//     .save()
+//     .then((list) => res.status(200).json(list))
+//     .catch((err) => console.log(err));
+// });
+
 router.post("/createNewList", passportAuth, (req, res) => {
-  //console.log("body ", req.body);
-  const listFields = {};
+  console.log("body ", req.body.listName);
+  List.find({
+    $and: [{"user" : req.user._id}, {"listName" : req.body.listName}]
+  }).then(async result => {
+    if (result.length === 0) {
+      const listFields = {};
   listFields.user = req.user._id;
   listFields.listName = req.body.listName;
-
   const list = new List(listFields);
   list
     .save()
     .then((list) => res.status(200).json(list))
     .catch((err) => console.log(err));
+    } else {
+      return res.status(201).send({status : 201});
+    }
+  }).catch((err) => console.log(err));
 });
 
 router.get("/getList", passportAuth, (req, res) => {
