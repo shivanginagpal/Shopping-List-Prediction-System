@@ -12,7 +12,7 @@ class RecentlyBought extends Component {
      }
 
     componentDidMount() {
-    axios("/items", {
+    axios("/recentlyBought", {
       method: "get",
     }).then((res) => {
       this.setState({
@@ -50,7 +50,7 @@ class RecentlyBought extends Component {
                   />
                   <div className="card-block" id="cardadmin-title-text">
                     <h6 className="card-title lead" id="cardadmin-title">
-                      <span>{product.name}</span>
+                      <span>{product.item.itemName}</span>
                       
                     </h6>
                     <p className="card-text lead" id="cardadmin-text">

@@ -179,4 +179,24 @@ router.post("/buyItemFromList", passportAuth, (req, res) => {
     .catch((err) => res.status(404).json(err));
 });
 
+router.get("/recentlyBought", passportAuth, (req, res) => {
+  List.aggregate([
+    {
+            $match: {
+                user: ObjectId(req.user._id)
+            }
+        },{
+            $unwind: "$item"
+        },{
+            $match: {
+            "item.bought":true,
+             }
+         },{
+           $sort : {
+             "item.date": -1
+           }
+         }
+  ]).then((list) => res.status(200).json(list))
+    .catch((err) => res.status(404).json(err));
+})
 module.exports = router;
