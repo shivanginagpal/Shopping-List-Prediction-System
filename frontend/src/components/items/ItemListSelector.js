@@ -37,14 +37,13 @@ class ItemListSelector extends React.Component {
 
   handleAddToList() {
     const data = {
-      list_id: this.state.listMap[this.state.selectedListName]._id,
-      itemName: 'test',
-      quantity: 2,
-      price: 10,
-      brandName: 'test_brand',
+      list_id : this.state.listMap[this.state.selectedListName]._id,
+      itemName: this.props.selectedItem.name,
+      product_id: this.props.selectedItem.product_id,
+      category: this.props.selectedItem.category,
     };
     axios("/addItemToList", {
-      method: "put",
+      method: "PUT",
       data: data,
     })
       .then((response) => {
