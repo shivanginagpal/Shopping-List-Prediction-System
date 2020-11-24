@@ -20,7 +20,6 @@ class RecentlyBought extends Component {
       });
       console.log("these are items ", this.state.items);
     });
-
      }
 
     render() {
@@ -88,7 +87,6 @@ class RecentlyBought extends Component {
                 <div className="container" id="recom">
                     {products}
                 </div>
-                
             </div>
         )
     }

@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import axios from "axios";
+import product_image from "../../images/grocery.jpg";
+import { isFieldEmpty } from "../auth/HelperApis";
 
 class Recommendation extends Component {
   constructor(props) {
@@ -7,7 +10,9 @@ class Recommendation extends Component {
     this.state = {
       error: null,
       isLoaded: false,
+      itemsNum: [120, 4261, 37761],
       items: [],
+      products :[]
     };
   }
   componentDidMount() {
@@ -33,9 +38,88 @@ class Recommendation extends Component {
           });
         }
       );
+    const data = {
+      product : this.state.itemsNum
+    }
+    axios("/getUserRecommendations", {
+      method: "PUT",
+      data: data
+    }).then((res) => {
+      this.setState({
+        products: this.state.products.concat(res.data),
+      });
+      console.log("these are items ", this.state.products[0].data);
+    });
   }
+
+   isFieldEmpty = (prop)=>{
+    if(prop === "" || prop === null || typeof prop === "undefined"){
+        return true;
+    } else{
+        return false;
+    }
+};
   render() {
-    return <div>"Recommended Products:"</div>;
+    let productdet;
+    if (this.state.products.length != 0) {
+      let products = this.state.products[0].data;
+      console.log("ITEMS ARRAY ", products);
+      productdet = products.map((product) => {
+          let productimg = isFieldEmpty(product.item_image)
+            ? product_image
+            : product.item_image;
+        // let productimg = product_image;
+        return (
+          <div>
+            <div id="itemAdminRight">
+              <div className="col">
+                  
+                <div className="card" id="cardadminclass">
+                  
+                  <img
+                    src={productimg}
+                    className="card-img-top"
+                    id="cardadmin-img-top"
+                    alt="..."
+                  />
+                  <div className="card-block" id="cardadmin-title-text">
+                    <h6 className="card-title lead" id="cardadmin-title">
+                      <span>{product.name}</span>
+                      
+                    </h6>
+                    <p className="card-text lead" id="cardadmin-text">
+                     {/* Quantity : {product.quantity} */}
+                    </p>
+                    <p className="card-text lead" id="cardadmin-text">
+                      {/* Brand : {product.brandName} */}
+                    </p>
+
+                    <span>
+                      <p className="card-text lead" id="cardadmin-text">
+                        {/* Price : ${product.price} */}
+                      </p>
+                    </span>
+                    <button
+                      className="btn btn-primary"
+                      id="rmbutton"
+                    //   onClick={() => this.editModal(product)}
+                    >
+                      Add to List
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      });
+    }
+
+    return <div>"Recommended Products:"
+      <div className="container" id="recom">
+                    {productdet}
+                </div>
+    </div>;
   }
 }
 

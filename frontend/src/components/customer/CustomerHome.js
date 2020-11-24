@@ -7,6 +7,7 @@ import RecentlyBought from "./RecentlyBought";
 
 
  class CustomerHome extends Component {
+   
   render() {
     
     return (
