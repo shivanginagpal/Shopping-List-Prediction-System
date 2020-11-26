@@ -41,6 +41,7 @@ class ItemListSelector extends React.Component {
       itemName: this.props.selectedItem.name,
       product_id: this.props.selectedItem.product_id,
       category: this.props.selectedItem.category,
+      item_image: this.props.selectedItem.item_image
     };
     axios("/addItemToList", {
       method: "PUT",
