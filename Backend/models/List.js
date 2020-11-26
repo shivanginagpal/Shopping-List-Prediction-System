@@ -51,6 +51,9 @@ const ListSchema = new Schema({
         type: Date,
         default: Date.now,
       },
+      item_image: { 
+        type: String
+      },
     },
   ],
 });

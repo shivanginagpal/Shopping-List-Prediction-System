@@ -94,10 +94,39 @@ router.get("/getList", passportAuth, (req, res) => {
     });
 });
 
-router.put("/addItemToList", passportAuth, (req, res) => {
+// router.put("/addItemToList", passportAuth, (req, res) => {
+//   console.log("addItemToList body ", req.body);
+//   List.findOne({ _id: req.body.list_id }).then((list) => {
+//     const newItem = {};
+//     if (req.body.item_image) newItem.item_image = req.body.item_image;
+//     if (req.body.itemName) newItem.itemName = req.body.itemName;
+//     if (req.body.quantity) newItem.quantity = req.body.quantity;
+//     if (req.body.store) newItem.store = req.body.store;
+//     if (req.body.brandName) newItem.brandName = req.body.brandName;
+//     if (req.body.price) newItem.price = req.body.price;
+//     if (req.body.product_id) newItem.product_id = req.body.product_id;
+//     if (req.body.category) newItem.category = req.body.category;
+
+//     // Add to item array
+//     list.item.unshift(newItem);
+//     list.save().then((list) => res.status(200).json(list));
+//   });
+// });
+
+
+router.put("/addItemToList", passportAuth, async (req, res) => {
   console.log("addItemToList body ", req.body);
-  List.findOne({ _id: req.body.list_id }).then((list) => {
+ await List.find({$and :[{_id: req.body.list_id},{"item.itemName" : req.body.itemName}]})
+  .then( async (result) => {
+    console.log("THIS IS RESULT",result);
+    if (result.length !== 0) {
+       return res.status(201).send({status : 201});
+      
+    } else {
+      console.log("CONTROL HERE");
+   List.findOne({ _id: req.body.list_id }).then((list) => {
     const newItem = {};
+    if (req.body.item_image) newItem.item_image = req.body.item_image;
     if (req.body.itemName) newItem.itemName = req.body.itemName;
     if (req.body.quantity) newItem.quantity = req.body.quantity;
     if (req.body.store) newItem.store = req.body.store;
@@ -109,6 +138,9 @@ router.put("/addItemToList", passportAuth, (req, res) => {
     // Add to item array
     list.item.unshift(newItem);
     list.save().then((list) => res.status(200).json(list));
+  
+  }).catch((err) => console.log(err));
+    }
   });
 });
 
@@ -117,7 +149,7 @@ router.put("/getitemsfromList", passportAuth, (req, res) => {
   //console.log("In ")
   List.findOne({ _id: ObjectId(req.body.list_id) }, { "item": 1, "_id": 0 })
     .then((result) => {
-      console.log("messages retreived", result);
+      //console.log("messages retreived", result);
       //res.end(JSON.stringify(result));
       res.json(result);
     })
@@ -148,8 +180,9 @@ router.delete("/deleteItemFromList", passportAuth, (req, res) => {
 });
 
 router.post("/updateItemToList", passportAuth, async (req, res) => {
- // console.log("updateItemToList body ", req.body);
+  console.log("updateItemToList body ", req.body);
   let item = {};
+  if (req.body.item_image) item.item_image = req.body.item_image;
   if (req.body.itemName) item.itemName = req.body.itemName;
   if (req.body.quantity) item.quantity = req.body.quantity;
   if (req.body.store) item.store = req.body.store;

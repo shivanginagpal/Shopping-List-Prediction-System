@@ -91,9 +91,6 @@ class addList extends Component {
             icon: "error",
             button: "OK",
           })
-            .then(() => {
-              window.location.reload();
-            })
             .catch((error) => console.log(error.response.data));
         }
       })

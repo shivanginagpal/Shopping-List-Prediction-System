@@ -38,41 +38,41 @@ class CustomerNavbar extends Component {
               </li>
             </ul>
 
-            <ul className="navbar-nav">
+            {/* <ul className="navbar-nav">
               <li className="nav-item">
                 <a className="nav-link" href="/recommendations">
                   {" "}
                   Recommended Products
                 </a>
               </li>
-            </ul>
+            </ul> */}
 
-            <ul className="navbar-nav">
+            {/* <ul className="navbar-nav">
               <li className="nav-item">
                 <a className="nav-link" href="/customerHome">
                   {" "}
                   Previous Purchases
                 </a>
               </li>
-            </ul>
+            </ul> */}
 
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link" href="/createListHome">
+                <a className="nav-link" href="/addList">
                   {" "}
                   Create New List
                 </a>
               </li>
             </ul>
 
-            <ul className="navbar-nav">
+            {/* <ul className="navbar-nav">
               <li className="nav-item">
                 <a className="nav-link" href="/customerHome">
                   {" "}
                   Estimations
                 </a>
               </li>
-            </ul>
+            </ul> */}
 
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">

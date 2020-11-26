@@ -10,7 +10,7 @@ class SideBar extends Component {
         <ul class="sidebar-navigation">
           <li class="header">Navigation</li>
           <li>
-            <a href="#">
+            <a href="/customerHome">
               <i class="fa fa-home" aria-hidden="true"></i> Homepage
             </a>
           </li>
