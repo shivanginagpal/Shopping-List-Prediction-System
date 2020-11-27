@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
-import SideBar from "../layout/SideBar";
 import product_image from "../../images/grocery.jpg";
 import { isFieldEmpty } from "../auth/HelperApis";
 
@@ -88,7 +87,7 @@ class Recommendation extends Component {
                     id="cardadmin-img-top"
                     alt="..."
                   />
-                  <div className="card-block" id="cardadmin-title-text">
+                  <div className="card-block" id="cardadmin-title-text" style={{ "height": "8em" }}>
                     <h6 className="card-title lead" id="cardadmin-title">
                       <span>{product.name}</span>
 
@@ -121,7 +120,7 @@ class Recommendation extends Component {
       });
     }
 
-    return <div>"Recommended Products:"
+    return <div><h2>Recommendations</h2>
       <div className="container" id="recom">
         {productdet}
       </div>
