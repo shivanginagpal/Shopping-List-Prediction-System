@@ -27,7 +27,7 @@ class DayofWeekExp extends Component {
                  let valArr = [];
                  response.data.forEach((item) => {
                      monthsArr.push(item._id);
-                     valArr.push(item.count)
+                     valArr.push(item.count.toFixed(2))
                  });
                  this.setState({
                      dayofweek: monthsArr,

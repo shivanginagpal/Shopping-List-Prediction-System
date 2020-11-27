@@ -42,7 +42,7 @@ class StoreExpenditure extends Component {
                  let valArr = [];
                  response.data.forEach((item) => {
                      monthsArr.push(item._id);
-                     valArr.push(item.total)
+                     valArr.push(item.total.toFixed(2));
                  });
                  this.setState({
                      costcomonth: monthsArr,
@@ -58,7 +58,7 @@ class StoreExpenditure extends Component {
                  let valArr = [];
                  response.data.forEach((item) => {
                      monthsArr.push(item._id);
-                     valArr.push(item.total)
+                     valArr.push(item.total.toFixed(2))
                  });
                  this.setState({
                      walmartmonth: monthsArr,
@@ -74,7 +74,7 @@ class StoreExpenditure extends Component {
                  let valArr = [];
                  response.data.forEach((item) => {
                      monthsArr.push(item._id);
-                     valArr.push(item.total)
+                     valArr.push(item.total.toFixed(2))
                  });
                  this.setState({
                      wholefoodsmonth: monthsArr,

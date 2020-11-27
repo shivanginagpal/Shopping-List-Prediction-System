@@ -28,7 +28,7 @@ class CategoryExp extends Component {
                  let valArr = [];
                  response.data.forEach((item) => {
                      monthsArr.push(item._id);
-                     valArr.push(item.total)
+                     valArr.push(item.total.toFixed(2))
                  });
                  this.setState({
                      category: monthsArr,
