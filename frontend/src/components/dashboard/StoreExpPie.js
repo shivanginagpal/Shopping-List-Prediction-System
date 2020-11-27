@@ -18,8 +18,8 @@ class StoreExpPie extends Component {
         }
     }
 
-    componentDidMount = () => {
-        axios('/storeExpenditure',{
+    componentDidMount = async () => {
+        await axios('/storeExpenditure',{
             method: "get",
         }).then((response) => {
                  let monthsArr = [];

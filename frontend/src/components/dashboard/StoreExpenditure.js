@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import { Line, Bar, Pie } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import classNames from "classnames";
 import {
   Button,
@@ -8,7 +8,6 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   CardTitle,
   Row,
   Col,
@@ -34,8 +33,8 @@ class StoreExpenditure extends Component {
     });
   };
 
-    componentDidMount = () => {
-        axios('/monthlyCostcoExp',{
+    componentDidMount = async () => {
+        await axios('/monthlyCostcoExp',{
             method: "get",
         }).then((response) => {
                  console.log("THIS IS RESPONSE", response);
@@ -51,7 +50,7 @@ class StoreExpenditure extends Component {
                  });
              })
 
-        axios('/monthlyWalmartExp',{
+       await axios('/monthlyWalmartExp',{
             method: "get",
         }).then((response) => {
                  console.log("THIS IS RESPONSE", response);
@@ -67,7 +66,7 @@ class StoreExpenditure extends Component {
                  });
              })
         
-        axios('/monthlyWholefoodsExp',{
+       await axios('/monthlyWholefoodsExp',{
             method: "get",
         }).then((response) => {
                  console.log("THIS IS RESPONSE", response);
