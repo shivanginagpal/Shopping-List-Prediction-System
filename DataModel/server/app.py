@@ -169,7 +169,7 @@ def get_prediction(user_id):
     given_prods = {}
 
     for row in df_test.itertuples():
-        if row.pred > 0.3:
+        if row.pred > 0.03:
             try:
                 given_prods[row.order_id] += ' ' + str(row.product_id)
             except:

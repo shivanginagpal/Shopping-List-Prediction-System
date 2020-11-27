@@ -15,21 +15,22 @@ router.put("/getUserRecommendations", async (req, res) => {
   //[1234, 4567, 78954]
   let itemlist = [];
   //let products = [120, 4261, 37761];
-  let products =[];
- console.log("In recom", req.body.product);
-  products = req.body.product;
-  
+  let products = [];
+  console.log("In recom", req.body.product.result);
+  products = req.body.product.result;
+
   // products.map(async product => {
   //   console.log(product);
   // })
- let itemdata =  async() => { return Promise.all(req.body.product.map(async product =>{ 
-   console.log("IN ITEM DATA");
-  await Item.findOne({product_id: product})
-  .then((item) => {itemlist.push(item)})
-  .catch((err) => res.status(404).json({ user: "no such item" }));
- }))
-}
-await itemdata().then((x) => res.send({status: 200, data : itemlist})).catch((err)=> res.status(404).json({ user: "There is no such item" }))
+  let itemdata = async () => {
+    return Promise.all(products.map(async product => {
+      console.log("IN ITEM DATA");
+      await Item.findOne({ product_id: product })
+        .then((item) => { itemlist.push(item) })
+        .catch((err) => res.status(404).json({ user: "no such item" }));
+    }))
+  }
+  await itemdata().then((x) => res.send({ status: 200, data: itemlist })).catch((err) => res.status(404).json({ user: "There is no such item" }))
 })
 
 //get the user
@@ -63,19 +64,19 @@ router.delete("/deleteList", passportAuth, (req, res) => {
 router.post("/createNewList", passportAuth, (req, res) => {
   console.log("body ", req.body.listName);
   List.find({
-    $and: [{"user" : req.user._id}, {"listName" : req.body.listName}]
+    $and: [{ "user": req.user._id }, { "listName": req.body.listName }]
   }).then(async result => {
     if (result.length === 0) {
       const listFields = {};
-  listFields.user = req.user._id;
-  listFields.listName = req.body.listName;
-  const list = new List(listFields);
-  list
-    .save()
-    .then((list) => res.status(200).json(list))
-    .catch((err) => console.log(err));
+      listFields.user = req.user._id;
+      listFields.listName = req.body.listName;
+      const list = new List(listFields);
+      list
+        .save()
+        .then((list) => res.status(200).json(list))
+        .catch((err) => console.log(err));
     } else {
-      return res.status(201).send({status : 201});
+      return res.status(201).send({ status: 201 });
     }
   }).catch((err) => console.log(err));
 });
@@ -148,7 +149,7 @@ router.delete("/deleteItemFromList", passportAuth, (req, res) => {
 });
 
 router.post("/updateItemToList", passportAuth, async (req, res) => {
- // console.log("updateItemToList body ", req.body);
+  // console.log("updateItemToList body ", req.body);
   let item = {};
   if (req.body.itemName) item.itemName = req.body.itemName;
   if (req.body.quantity) item.quantity = req.body.quantity;
@@ -190,20 +191,20 @@ router.post("/buyItemFromList", passportAuth, (req, res) => {
 router.get("/recentlyBought", passportAuth, (req, res) => {
   List.aggregate([
     {
-            $match: {
-                user: ObjectId(req.user._id)
-            }
-        },{
-            $unwind: "$item"
-        },{
-            $match: {
-            "item.bought":true,
-             }
-         },{
-           $sort : {
-             "item.date": -1
-           }
-         }
+      $match: {
+        user: ObjectId(req.user._id)
+      }
+    }, {
+      $unwind: "$item"
+    }, {
+      $match: {
+        "item.bought": true,
+      }
+    }, {
+      $sort: {
+        "item.date": -1
+      }
+    }
   ]).then((list) => res.status(200).json(list))
     .catch((err) => res.status(404).json(err));
 })
