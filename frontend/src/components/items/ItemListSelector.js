@@ -49,27 +49,20 @@ class ItemListSelector extends React.Component {
     })
       .then((response) => {
         if (response.status === 200) {
-          this.showModal();
           swal({
             title: "Success",
             text: "Item added successfully",
             icon: "success",
             button: "OK",
           })
-            .then(() => {
-              window.location.reload();
-            })
             .catch((error) => console.log(error.response.data));
         } else if (response.status === 201) {
           swal({
             title: "Sorry",
-            text: "List already exists",
+            text: "Item already exists in the list",
             icon: "error",
             button: "OK",
           })
-            .then(() => {
-              window.location.reload();
-            })
             .catch((error) => console.log(error.response.data));
         }
       })
@@ -97,8 +90,8 @@ class ItemListSelector extends React.Component {
           </select>
           <br></br>
           <br></br>
-          <button id="add_me" onClick={this.handleAddToList.bind(this)}>Add to List</button>
-          <button id="close_me" onClick={this.props.closeItemListSelector} >Close</button>
+          <button className="btn btn-primary" id="add_me" onClick={this.handleAddToList.bind(this)}>Add to List</button>
+          <button className="btn btn-danger" id="close_me" onClick={this.props.closeItemListSelector} >Close</button>
         </div>
         </div>
     );
