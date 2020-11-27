@@ -121,7 +121,7 @@ class Recommendation extends Component {
     }
 
     return <div><h2>Recommendations</h2>
-      <div className="container" id="recom">
+      <div className="container" id="recom" lg="4" md="6" xs="6">
         {productdet}
       </div>
     </div>;
