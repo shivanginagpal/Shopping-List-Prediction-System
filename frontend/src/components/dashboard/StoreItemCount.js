@@ -18,8 +18,8 @@ class StoreItemCount extends Component {
         }
     }
 
-    componentDidMount = () => {
-        axios('/storeItemsCount',{
+    componentDidMount = async () => {
+       await axios('/storeItemsCount',{
             method: "get",
         }).then((response) => {
                  let monthsArr = [];

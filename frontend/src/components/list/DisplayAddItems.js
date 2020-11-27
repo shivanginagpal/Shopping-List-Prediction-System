@@ -66,12 +66,14 @@ class DisplayAddItems extends Component {
   }
 
   addItem = () => {
+    console.log("IN ADD ITEM");
       const listid = this.props.listid;
       const data = {
           list_id : listid,
           itemName: this.state.itemObj.name,
           product_id: this.state.itemObj.product_id,
-          category: this.state.itemObj.category
+          category: this.state.itemObj.category,
+          item_image : this.state.itemObj.item_image
       };
       axios("/addItemToList", {
         method: "PUT",
@@ -103,20 +105,17 @@ class DisplayAddItems extends Component {
           } else if (response.status === 201) {
             swal({
               title: "Sorry",
-              text: "List already exists",
+              text: "Item already exists",
               icon: "error",
               button: "OK",
             })
-              .then(() => {
-                window.location.reload();
-              })
               .catch((error) => console.log(error.response.data));
           }
         })
         .catch((error) => {
-          console.log("add project not 2xx response");
+          console.log("add project not 2xx response", error);
         });
-console.log("THIS IS THE SELECTED ITEM", this.state.itemObj);
+      console.log("THIS IS THE SELECTED ITEM", this.state.itemObj);
       this.setState({
           text:''
       })

@@ -6,6 +6,7 @@ import axios from "axios";
 import swal from "sweetalert";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import product_image from "../../images/grocery.jpg";
+import {isFieldEmpty} from "../auth/HelperApis";
 import NotificationAlert from "react-notification-alert";
 import "react-notification-alert/dist/animate.css";
 
@@ -22,6 +23,7 @@ class viewItems extends Component {
       // BrandName: "",
       // store: "",
       product_id:"",
+      item_image:"",
       category:"",
       editmodal: false,
       edititemName: null,
@@ -34,13 +36,14 @@ class viewItems extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
   }
-  showModal = () => {
+
+ showModal = () => {
     this.setState({
-      modal: !this.state.modal,
+      editmodal: !this.state.editmodal,
     });
   };
 
-  editModal = (product) => {
+  editModalData = (product) => {
     console.log("product", product);
     if (this.state.editmodal) {
       this.setState({
@@ -50,6 +53,7 @@ class viewItems extends Component {
         editBrandName: null,
         product_id: product.product_id,
         category: product.category,
+        item_image: product.item_image,
         editStoreName: null,
         editmodal: !this.state.editmodal,
       });
@@ -63,7 +67,8 @@ class viewItems extends Component {
         editQuantity: product.quantity,
         editPrice: product.price,
         editBrandName: product.brandName,
-        editStoreName: product.store
+        editStoreName: product.store,
+        item_image: product.item_image,
       });
     }
   };
@@ -92,7 +97,8 @@ class viewItems extends Component {
     });
   };
 
-  edititem = (itemid) => {
+  edititem = async (itemid) => {
+    console.log("IN EDIT ITEM");
     const listid = this.props.match.params.listid;
 
     const data = {
@@ -101,13 +107,13 @@ class viewItems extends Component {
       quantity: this.state.editQuantity,
       price: this.state.editPrice,
       brandName: this.state.editBrandName,
-      store: this.state.editStoreName,
+      store: this.state.editStoreName.toLowerCase(),
       product_id: this.state.product_id,
       category: this.state.category,
-
+      item_image: this.state.item_image,
       item_id: itemid,
     };
-    axios("/updateItemToList", {
+   await axios("/updateItemToList", {
       method: "post",
       data: data,
     }).then((response) => {
@@ -183,7 +189,7 @@ class viewItems extends Component {
 
   render() {
     const closeeditmodalBtn = (
-      <button className="close" onClick={() => this.editModal()}>
+      <button className="close" onClick={() => this.showModal()}>
         &times;
       </button>
     );
@@ -195,15 +201,17 @@ class viewItems extends Component {
       let items = this.state.items[0];
       console.log("ITEMS ARRAY ", items.item);
       products = items.item.map((product) => {
-        //   let productimg = isFieldEmpty(product.products.productImage[0])
-        //     ? product_image
-        //     : product.products.productImage[0];
-        let productimg = product_image;
+        console.log("PRODUCT Image", isFieldEmpty(product.item_image));
+          let productimg = isFieldEmpty(product.item_image)
+            ? product_image
+            : product.item_image;
+        //let productimg = product_image;
+
         return (
           <div>
             <div id="itemAdminRight">
               <div className="col">
-                <div className="card" id="cardadminclass">
+                <div className="card" id="cardadminclass" >
 
                   <img
                     src={productimg}
@@ -211,7 +219,7 @@ class viewItems extends Component {
                     id="cardadmin-img-top"
                     alt="..."
                   />
-                  <div className="card-block" id="cardadmin-title-text">
+                  <div className="card-block" id="cardadmin-title-text" style={{"height":"20em"}}>
                     <h6 className="card-title lead" id="cardadmin-title">
                       <span>{product.itemName}</span>
                       <span>
@@ -245,7 +253,7 @@ class viewItems extends Component {
                     <button
                       className="btn btn-primary"
                       id="rmbutton"
-                      onClick={() => this.editModal(product)}
+                      onClick={() => this.editModalData(product)}
                     >
                       Edit
                     </button>
@@ -271,13 +279,13 @@ class viewItems extends Component {
       edit = (
         <Modal
           isOpen={this.state.editmodal}
-          toggle={() => this.editModal()}
+          toggle={() => this.showModal()}
           className="modal-popup"
           transparent={true}
           scrollable
         >
           <ModalHeader
-            toggle={() => this.editModal()}
+            toggle={() => this.showModal()}
             close={closeeditmodalBtn}
           >
             Edit Item
@@ -338,7 +346,7 @@ class viewItems extends Component {
             </form>
           </ModalBody>
           <ModalFooter>
-            <Button color="secondary" onClick={() => this.editModal()}>
+            <Button color="secondary" onClick={() => this.showModal()}>
               Cancel
             </Button>
           </ModalFooter>

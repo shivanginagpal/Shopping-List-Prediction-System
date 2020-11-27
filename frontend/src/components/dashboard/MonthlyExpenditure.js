@@ -57,7 +57,7 @@ class MonthlyExpenditure extends Component {
       labels: temp,
       datasets: [
         {
-          label: "Monthly Expenditure",
+          label: "Monthly Expenditure($)",
           fill: true,
           backgroundColor: gradientStroke,
           borderColor: "#00d6b4",

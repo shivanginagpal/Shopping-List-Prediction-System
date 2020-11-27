@@ -106,7 +106,7 @@ class WeekDayExpenditure extends Component {
       labels: temp,
       datasets: [
         {
-          label: "Data",
+          label: "Money Spent($)",
           fill: true,
           backgroundColor: gradientStroke,
           borderColor: "#1f8ef1",

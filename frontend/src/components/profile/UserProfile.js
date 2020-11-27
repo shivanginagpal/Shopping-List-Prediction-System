@@ -4,16 +4,11 @@ import CustomerNavbar from "../customer/CustomerNavbar";
 import SideBar from "../layout/SideBar";
 import productimg from "../../images/grocery.jpg";
 import shivangi from "../../images/shivangi-Nagpal.jpg"
+import profilepic from "../../images/blank-profile-picture.png"
 import {
-  Button,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
-  CardTitle,
-  FormGroup,
-  Form,
-  Input,
   Row,
   Col,
 } from "reactstrap";
@@ -25,10 +20,35 @@ class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userDetails:""
+      userDetails:"",
+      lists:[],
+      itemsBought:[],
+      totalexp:[]
     };
   }
   componentDidMount = () => {
+     axios("/noOfLists", {
+      method: "get",
+    }).then((res) => {
+       this.setState({
+        lists: this.state.lists.concat(res.data),
+      });
+    });
+    axios("/noOfItemsBought", {
+      method: "get",
+    }).then((res) => {
+       this.setState({
+        itemsBought: this.state.itemsBought.concat(res.data),
+      });
+    });
+
+    axios("/totalexpenditure", {
+      method: "get",
+    }).then((res) => {
+       this.setState({
+        totalexp: this.state.totalexp.concat(res.data),
+      });
+    });
 
     axios("/getUser",{
       method: "get",
@@ -41,6 +61,23 @@ class UserProfile extends Component {
   }
 
   render() {
+    const {lists} = this.state
+        let num;
+        if(lists[0] != undefined) {      
+            num = lists[0].lists
+        }
+
+    const {itemsBought} = this.state
+        let numBought;
+        if(itemsBought[0] != undefined) {      
+            numBought = itemsBought[0].items
+        }
+
+        const {totalexp} = this.state
+        let totexp;
+        if(totalexp[0] != undefined) {      
+            totexp = totalexp[0].total
+        }
     return (
       <div>
         <CustomerNavbar />
@@ -69,7 +106,7 @@ class UserProfile extends Component {
                       <img
                         alt="..."
                         className="avatar border-gray"
-                        src={shivangi}
+                        src={profilepic}
                       />
                       <h5 className="title">{this.state.userDetails.name}</h5>
                     <p className="description">{this.state.userDetails.email}</p>
@@ -85,19 +122,19 @@ class UserProfile extends Component {
                     <Row>
                       <Col className="ml-auto" lg="3" md="6" xs="6">
                         <h5>
-                          12 <br />
+                          {num} <br />
                           <small>Lists</small>
                         </h5>
                       </Col>
                       <Col className="ml-auto mr-auto" lg="4" md="6" xs="6">
                         <h5>
-                          20 <br />
+                          {numBought} <br />
                           <small>Items</small>
                         </h5>
                       </Col>
                       <Col className="mr-auto" lg="3">
                         <h5>
-                          24,6$ <br />
+                          {totexp}$ <br />
                           <small>Spent</small>
                         </h5>
                       </Col>

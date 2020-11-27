@@ -7,6 +7,7 @@ import ItemListSelector from './ItemListSelector';
 import product_image from "../../images/grocery.jpg";
 import '../../App.css';
 import { isFieldEmpty } from "../auth/HelperApis";
+import SideBar from "../layout/SideBar";
 
 class ItemsList extends React.Component {
   constructor(props) {
@@ -80,6 +81,11 @@ class ItemsList extends React.Component {
       return (
         <div>
           <CustomerNavbar />
+          <div className="row">
+            <div className="col-2">
+              <SideBar/>
+            </div>
+            <div className="col-10">
           <div className="container">
           <h3>Shop Popular Items</h3>
 
@@ -111,8 +117,8 @@ class ItemsList extends React.Component {
                         {/* <p>Quantity: {item.quantity}</p> */}
                         {/* <p><strong>Category:</strong> {item.category}</p> */}
                         {<p><strong>Description:</strong> {item.description}</p>}
-                        <input type="number" id="number" min="0" max="100" />
-                        <button onClick={this.toggleItemListSelector.bind(this, item)}>Add to List</button>
+                        {/* <input type="number" id="number" min="0" max="100" /> */}
+                        <button id="rmbutton" className="btn btn-primary" onClick={this.toggleItemListSelector.bind(this, item)}>Add to List</button>
                       </div>
                     </div>
                   </div>
@@ -120,7 +126,6 @@ class ItemsList extends React.Component {
 
                 {
                   this.state.showItemListSelector ?
-
                     <ItemListSelector
                       item={item}
                       selectedItem={this.state.selectedItem}
@@ -128,14 +133,11 @@ class ItemsList extends React.Component {
                     />
                     : null
                 }
-
-
               </div>
-
             ))}
           </div>
-
-
+                </div>
+                </div>
                 </div>
         </div >
       );

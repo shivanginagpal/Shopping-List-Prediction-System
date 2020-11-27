@@ -90,11 +90,11 @@ class CategoryExp extends Component {
           },
           ticks: {
             suggestedMin: 10,
-            suggestedMax: 100,
+            suggestedMax: 300,
             padding: 20,
             fontColor: "#9e9e9e",
             beginAtZero: true,
-            stepSize: 5
+            stepSize: 30
           }
         }
       ],
