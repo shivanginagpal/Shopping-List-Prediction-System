@@ -237,7 +237,7 @@ router.get("/recentlyBought", passportAuth, (req, res) => {
              "item.date": -1
            }
          }
-  ]).then((list) => res.status(200).json(list))
+  ]).limit(10).then((list) => res.status(200).json(list))
     .catch((err) => res.status(404).json(err));
 })
 module.exports = router;

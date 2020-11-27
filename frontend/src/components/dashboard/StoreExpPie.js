@@ -41,7 +41,7 @@ class StoreExpPie extends Component {
               {
                 label: 'Total Money Spent($)',
                 data: this.state.amount,
-                backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f"]
+                backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f"] 
               }
             ]
           };

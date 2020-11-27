@@ -156,7 +156,7 @@ let chartExample1 = {
       labels: temp,
       datasets: [
         {
-          label: "costco monthly expenditure",
+          label: "Costco monthly expenditure($)",
           fill: true,
           backgroundColor: gradientStroke,
           borderColor: "#1f8ef1",
@@ -193,7 +193,7 @@ let chartExample1 = {
       labels: temp,
       datasets: [
         {
-          label: "My First dataset",
+          label: "Walmart monthly expenditure($)",
           fill: true,
           backgroundColor: gradientStroke,
           borderColor: "#1f8ef1",
@@ -230,7 +230,7 @@ let chartExample1 = {
       labels: temp,
       datasets: [
         {
-          label: "My First dataset",
+          label: "Wholefoods Monthly Expenditure($)",
           fill: true,
           backgroundColor: gradientStroke,
           borderColor: "#1f8ef1",
@@ -329,7 +329,7 @@ let chartExample1 = {
                                 type="radio"
                               />
                               <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                                Wholesale
+                                Wholefoods
                               </span>
                               <span className="d-block d-sm-none">
                                 <i className="tim-icons icon-tap-02" />

@@ -107,7 +107,7 @@ class viewItems extends Component {
       quantity: this.state.editQuantity,
       price: this.state.editPrice,
       brandName: this.state.editBrandName,
-      store: this.state.editStoreName,
+      store: this.state.editStoreName.toLowerCase(),
       product_id: this.state.product_id,
       category: this.state.category,
       item_image: this.state.item_image,

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import productimg from "../../images/grocery.jpg";
+import product_image from "../../images/grocery.jpg";
 import "./Recommende.css";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import swal from 'sweetalert';
+import {isFieldEmpty} from "../auth/HelperApis";
 
 class RecentlyBought extends Component {
     constructor(props) {
@@ -142,10 +143,10 @@ class RecentlyBought extends Component {
       let items = this.state.items;
       console.log("ITEMS ARRAY ", items.item);
       products = items.map((product) => {
-        //   let productimg = isFieldEmpty(product.products.productImage[0])
-        //     ? product_image
-        //     : product.products.productImage[0];
-        // let productimg = product_image;
+          let productimg = isFieldEmpty(product.item.item_image)
+            ? product_image
+            : product.item.item_image;
+        //let productimg = product_image;
         return (
           <div>
             <div id="itemAdminRight">
