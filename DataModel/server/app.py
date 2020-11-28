@@ -62,7 +62,10 @@ def getList(user_id_in):
     order_id_masked = 1112223
     prev_time = 0
     for doc in db.lists.find({"user": user_id}):
-
+        #if its the new list that user is creating generate recommendation
+        #on previous purchases
+        if (len(doc['item'])==0):
+            continue
         i = 0
         order_num += 1
         order_id_masked += 1

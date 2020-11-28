@@ -5,6 +5,8 @@ import "./Recommende.css";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import swal from 'sweetalert';
 import { isFieldEmpty } from "../auth/HelperApis";
+import NotificationAlert from "react-notification-alert";
+import "react-notification-alert/dist/animate.css";
 
 class RecentlyBought extends Component {
   constructor(props) {
@@ -18,6 +20,7 @@ class RecentlyBought extends Component {
       brandName: "",
       store: "",
       price: "",
+      item_image: "",
       modal: false
     }
   }
@@ -36,6 +39,7 @@ class RecentlyBought extends Component {
       brandName: product.item.brandName,
       store: product.item.store,
       price: product.item.price,
+      item_image: product.item.item_image,
       modal: !this.state.modal
     })
   }
@@ -68,7 +72,8 @@ class RecentlyBought extends Component {
       category: this.state.category,
       brandName: this.state.brandName,
       store: this.state.store,
-      price: this.state.price
+      price: this.state.price,
+      item_image: this.state.item_image
     }
     console.log("THIS IS PUT DATA", data);
     axios("/addItemToList", {
@@ -85,19 +90,20 @@ class RecentlyBought extends Component {
             button: "OK",
           })
             .then(() => {
-              window.location.reload();
+              this.showModal();
+              var options = {};
+              options = {
+                place: "tr",
+                message: <div>Item added</div>,
+                type: "info",
+                icon: "fas fa-bell",
+                autoDismiss: 5,
+                closeButton: true,
+              };
+              this.refs.notify.notificationAlert(options);
             })
             .catch((error) => console.log(error.response.data));
-          // var options = {};
-          // options = {
-          //   place: "tr",
-          //   message: <div>Item added</div>,
-          //   type: "info",
-          //   icon: "fas fa-bell",
-          //   autoDismiss: 5,
-          //   closeButton: true,
-          // };
-          // this.refs.notify.notificationAlert(options);
+
         } else if (response.status === 201) {
           swal({
             title: "Sorry",
@@ -238,6 +244,7 @@ class RecentlyBought extends Component {
                       </Button>
           </ModalFooter>
         </Modal>
+        <NotificationAlert ref="notify" />
       </div>
     )
   }
