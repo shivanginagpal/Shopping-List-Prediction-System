@@ -33,8 +33,8 @@ def test():
     return "Connected to the data base!"
 
 
-@ app.route("/getLists")
-def getList():
+#@ app.route("/getLists")
+def getList(user_id_in):
     data_test_prior = {
         'order_id':  [],
         'product_id': [],
@@ -55,7 +55,9 @@ def getList():
     # we can not read the local storage of the frontend server from
     # the python flask server
     order_num = 0
-    user_id = ObjectId('5e7c48e93dd7356fb55c5e71')
+    print("In Get List", user_id_in)
+    user_id = ObjectId(user_id_in)
+    
     user_id_masked = 11111
     order_id_masked = 1112223
     prev_time = 0
@@ -64,7 +66,7 @@ def getList():
         i = 0
         order_num += 1
         order_id_masked += 1
-        # print(doc['listName'])
+        #print("@@@@@@@@----->",doc['listName'])
         #print("Order Id", doc['_id'])
         data_test_order['order_id'].append(order_id_masked)
         data_test_order['user_id'].append(user_id_masked)
@@ -125,7 +127,7 @@ def not_found(error):
 
 @ app.route("/")
 def hello():
-    return "Hello World!"
+    return "Hello World! from python Flask server"
 
 
 def currentUserRecommendationData():
@@ -145,11 +147,12 @@ def currentUserRecommendationData():
 def get_prediction(user_id):
 
     print("In get prediction method")
-    print(user_id)
-    print(request)
+    user_id = user_id.split("=")[1]
+    #print(user_id)
+    #print(request)
     # generate the user prior and user order lists
     # TO DO: pass user ID to get list
-    getList()
+    getList(user_id)
 
     df_test = currentUserRecommendationData()
     #print("*******************Here******************", file=sys.stderr)
@@ -169,7 +172,7 @@ def get_prediction(user_id):
     given_prods = {}
 
     for row in df_test.itertuples():
-        if row.pred > 0.03:
+        if row.pred > 0.09:
             try:
                 given_prods[row.order_id] += ' ' + str(row.product_id)
             except:
@@ -194,4 +197,4 @@ def get_prediction(user_id):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0",port=5000)
