@@ -61,7 +61,12 @@ def getList(user_id_in):
     user_id_masked = 11111
     order_id_masked = 1112223
     prev_time = 0
+    num_docs =db.lists.find({"user": user_id}).count()
+    num = 0
     for doc in db.lists.find({"user": user_id}):
+        num+=1
+        if num == num_docs-1:
+            break
         #if its the new list that user is creating generate recommendation
         #on previous purchases
         if (len(doc['item'])==0):
