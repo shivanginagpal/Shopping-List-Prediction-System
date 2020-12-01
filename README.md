@@ -25,3 +25,6 @@ recommendations for the creating Shopping Lists.
 1. Go to the DataModel/server folder
 2. Activate the virtual environment using "source bin/activate"
 3. Run "python3 app.py"
+
+## Design Diagram
+![alt text](https://github.com/suryakatari97/ShoppingListPredictionSystem/blob/master/Design_diagram/ArchitectureDiagram.jpg)
