@@ -28,3 +28,9 @@ recommendations for the creating Shopping Lists.
 
 ## Design Diagram
 ![alt text](https://github.com/suryakatari97/ShoppingListPredictionSystem/blob/master/Design_diagram/ArchitectureDiagram.jpg)
+
+##### Image Credits: Images used for frontend application. 
+Image source:
+2.jpeg: https://unsplash.com/photos/NpNvI4ilT4A [work of Scott Warman published on Unsplash.com]
+3.jpeg: https://unsplash.com/photos/vlFeZzhlfzw [work of Dane Deaner published on Unsplash.com]
+Grocery.jpg: [Found at Google Images; Author Unknown; Image source: https://www.verifone.com/en/us/insight/holistic-solutions-tier-1]
