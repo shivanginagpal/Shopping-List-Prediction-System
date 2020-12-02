@@ -1,8 +1,7 @@
 # ShoppingListPredictionSystem
 
-This app help you create and download a shopping list. The shopping list currently focusses on the Grocery shopping.
-User can scan and upload it previous bills to the system. The previous purchase history will be then used to generate
-recommendations for the creating Shopping Lists.
+In this project, we have built a shopping list prediction system based on user preferences and previous purchase history. The main idea of this project is to provide users with the recommendation of the items that are likely to be purchased by the user. An authorized user can create different types of lists. The user can search and add items to those lists. The user has an option to edit or remove the list, view and edit the items of any list. We aim to improve the users shopping experience by developing a web application for generating an automated Shopping list. The application provides detailed insights on the shopping patterns in the form of bar graphs and pie charts and also recommends items that are frequently bought by the users.
+
 
 ## Steps to use
 
@@ -28,6 +27,9 @@ recommendations for the creating Shopping Lists.
 
 ## Design Diagram
 ![alt text](https://github.com/suryakatari97/ShoppingListPredictionSystem/blob/master/Design_diagram/ArchitectureDiagram.jpg)
+
+### We aim to improve the users shopping experience by developing a web-based application for generating an automated grocery list. The project workflow is shown below
+![alt text](https://github.com/suryakatari97/ShoppingListPredictionSystem/blob/master/Design_diagram/TopSellingProducts.png)
 
 ## Exploratory Analysis 
 ## Top Selling Products
