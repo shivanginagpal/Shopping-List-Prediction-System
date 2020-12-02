@@ -31,7 +31,7 @@ recommendations for the creating Shopping Lists.
 
 ## Exploratory Analysis 
 ## Top Selling Products
-![alt text](https://github.com/suryakatari97/ShoppingListPredictionSystem/blob/master/Design_diagram/ArchitectureDiagram.jpg)
+![alt text](https://github.com/suryakatari97/ShoppingListPredictionSystem/blob/master/Design_diagram/Days_since_prior_order.png)
 
 ## Treemap of Products Ordered Per Department
 ![alt text](https://github.com/suryakatari97/ShoppingListPredictionSystem/blob/master/Design_diagram/ArchitectureDiagram.jpg)
