@@ -28,8 +28,6 @@ In this project, we have built a shopping list prediction system based on user p
 ## Design Diagram
 ![alt text](https://github.com/suryakatari97/ShoppingListPredictionSystem/blob/master/Design_diagram/ArchitectureDiagram.jpg)
 
-### We aim to improve the users shopping experience by developing a web-based application for generating an automated grocery list. The project workflow is shown below
-![alt text](https://github.com/suryakatari97/ShoppingListPredictionSystem/blob/master/Design_diagram/TopSellingProducts.png)
 
 ## Exploratory Analysis 
 ## Top Selling Products
